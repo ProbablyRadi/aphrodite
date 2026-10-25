@@ -1,0 +1,167 @@
+/* Phone layout: preserve the archive while making navigation and data touch friendly.
+   Keep this after the shared theme rules so each appearance uses the same layout. */
+.site-navigation summary { display: none; }
+:where(a, button, select, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+.chart-scroll { max-width: 100%; overflow-x: auto; }
+.table-scroll, .career-stats-scroll, .chart-scroll { overscroll-behavior-x: contain; }
+
+@media (max-width: 760px) {
+  html { scroll-padding-top: 24px; }
+  body { -webkit-text-size-adjust: 100%; }
+  /* A static two-row header leaves more room for the actual archive while scrolling. */
+  body > header {
+    position: relative;
+    height: auto;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+    padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 16px max(16px, env(safe-area-inset-left));
+ }
+  .brand { gap: 10px; }
+  .header-tools {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    align-items: end;
+    width: 100%;
+    gap: 12px;
+    margin: 0;
+ }
+  .header-tools .character-select-wrap, .header-tools .theme-select-wrap {
+    position: static;
+    transform: none;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    width: auto;
+    min-width: 0;
+    margin: 0;
+ }
+  .header-tools select {
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    border-radius: 8px;
+    padding: 9px 6px;
+ }
+  body .layout, body.is-home .layout, body.is-gallery .layout {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 18px max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+ }
+  body .layout > .site-navigation {
+    display: block;
+    position: static;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    margin: 0 0 22px;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--head);
+    overflow: hidden;
+ }
+  body.is-home .layout > .site-navigation,
+  body.is-gallery .layout > .site-navigation { display: none; }
+  .site-navigation summary {
+    display: list-item;
+    padding: 14px 16px;
+    cursor: pointer;
+    font-weight: 700;
+ }
+  .site-navigation summary span {
+    display: block;
+    padding-left: 18px;
+    font-weight: 400;
+    opacity: .75;
+ }
+  .site-navigation details[open] summary { border-bottom: 1px solid var(--border); }
+  .site-navigation details > nav, .site-navigation details > small { margin: 12px; }
+  .site-navigation details > hr { margin: 12px; }
+  .site-navigation a { min-height: 44px; display: flex; align-items: center; padding: 10px 12px; }
+  .career-nav { gap: 6px; }
+  .career-nav-clubname { padding-top: 8px; }
+  .career-nav-club a { justify-content: space-between; }
+  /* Standings panels are also <aside> elements and must remain visible. */
+  .competition-pair > .competition-standings-panel { display: block; }
+  .season-data-grid, .stats-grid, .competition-pair {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 18px !important;
+ }
+  main, .season-page, .competition-fixtures, .season-card, .stats-summary { min-width: 0; }
+  .season-hero, .season-card, .season-competition { padding: 14px; border-radius: 8px; }
+  .season-breadcrumb, .season-record { flex-wrap: wrap; gap: 6px 10px; }
+  .season-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .season-kpis > div { padding: 9px 6px; }
+  .season-kpis span { overflow-wrap: anywhere; letter-spacing: 0; }
+  .season-kpis b { white-space: normal; overflow: visible; }
+  .analysis-summary { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .analysis-summary div { padding: 12px 4px; }
+  .competition-heading { flex-wrap: wrap; gap: 8px; }
+  .competition-heading h2 { min-width: 0; overflow-wrap: anywhere; }
+  .competition-heading a { min-height: 44px; display: inline-flex; align-items: center; }
+  .season-tabs-nav { align-items: stretch; padding: 12px; }
+  .season-tabs-nav div { justify-content: flex-start; gap: 6px; }
+  .season-tabs-nav a { display: inline-flex; align-items: center; min-height: 44px; white-space: normal; padding: 8px 10px; }
+  .profile-page .infobox { max-width: 100%; table-layout: fixed; }
+  .profile-page .infobox td { overflow-wrap: anywhere; }
+  .profile-page .infobox .infobox-career-years { white-space: normal; }
+  .profile-page .infobox .infobox-career-table :is(th, td) { font-size: 13px !important; }
+  .profile-page .infobox .infobox-career-table .country-flag { width: 22px; }
+  .toc { display: block; width: 100%; }
+  .toc a { display: inline-flex; align-items: center; min-height: 44px; }
+  /* Confine wide data to its own scroll region instead of moving the whole page. */
+  .table-scroll, .career-stats-scroll, .competition-pair .table-scroll {
+    width: 100%;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    scrollbar-width: thin;
+ }
+  .table-scroll .wikitable { width: max-content; min-width: 100%; }
+  .table-scroll .standings-table, .table-scroll .squad-table { min-width: 620px; }
+  .table-scroll .analysis-table { min-width: 1190px; }
+  .table-scroll .wikitable :is(th, td) { padding-top: 10px; padding-bottom: 10px; }
+  .fixture-table { width: 100%; table-layout: fixed; }
+  .fixture-table td { padding: 8px 3px; }
+  .fixture-table .team { width: auto; overflow-wrap: anywhere; }
+  .fixture-table .scorecell { width: 62px; }
+  .fixture-table .flag { width: 27px; padding: 2px; }
+  .fixture-table .flag .country-flag { width: 22px; margin: 0; }
+  .fixture-table .marker { width: 6px; }
+  .chart-scroll .chart-svg { min-width: 560px; }
+  /* A vertical timeline fits a phone without sideways swiping through tall cards. */
+  .timeline-scroll { padding: 12px 0 20px; overflow: visible; }
+  .career-timeline { display: grid; width: 100%; min-width: 0; padding: 0 0 0 22px; gap: 20px; }
+  .career-timeline::before { left: 5px; right: auto; top: 20px; bottom: 20px; width: 3px; height: auto; }
+  .timeline-season-card { width: 100%; min-width: 0; padding: 14px; }
+  .timeline-dot { top: 20px; left: -17px; width: 16px; height: 16px; border-width: 3px; }
+  .timeline-moves { grid-template-columns: minmax(0, 1fr); }
+  body.is-home .home-page > h1 { margin-bottom: 18px; text-align: left; }
+  body.is-home .home-page .home-tiles { gap: 14px; }
+  body.is-home .home-player-tile { min-height: 210px; padding: 18px; align-items: flex-end; justify-content: flex-start; }
+  body.is-home .home-page .home-actions { width: 100%; margin-top: 16px; }
+  .home-gallery-link { justify-content: center; width: 100%; min-height: 48px; }
+  .gallery-page { gap: 18px; }
+  .gallery-page-header { width: 100%; }
+  body.is-gallery .gallery-carousel { height: auto; min-height: 0; }
+  .gallery-slides { position: relative; }
+  .gallery-slide { position: relative; }
+  .gallery-slide img { height: auto; aspect-ratio: 4 / 3; object-fit: contain; }
+  .gallery-slide figcaption { position: static; max-height: none; padding: 16px; background: #101521; }
+  .gallery-dots { position: static; max-width: none; justify-content: center; gap: 0; padding: 4px 8px; background: #101521; }
+  .gallery-dot { width: 28px; height: 32px; border: 0; border-radius: 0; background: radial-gradient(circle, #777 4px, transparent 5px); }
+  .gallery-dot[aria-current="true"] { background: radial-gradient(circle, #fff 5px, transparent 6px); }
+  .gallery-dot:hover { background: radial-gradient(circle, #bbb 5px, transparent 6px); }
+  .gallery-arrow { top: 24px; transform: none; }
+  .gallery-arrow.is-previous { left: auto; right: 64px; }
+  body.theme-glass { background-attachment: scroll; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+}

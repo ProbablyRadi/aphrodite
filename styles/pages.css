@@ -1,0 +1,925 @@
+/* Home page character grid */
+
+.home-page {
+  min-height: calc(100vh - 150px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.home-page > h1 {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 0 30px;
+  text-align: center;
+}
+.home-page .home-tiles {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 28px;
+  width: min(1320px,100%);
+  margin: 0 auto;
+}
+.home-player-tile {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 290px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--head);
+  color: var(--text);
+  text-decoration: none;
+  box-shadow: 0 7px 24px rgba(0,0,0,.08);
+  transition: transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+}
+.home-player-tile::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: rgba(255,255,255,.46);
+  backdrop-filter: blur(2px);
+}
+.home-player-tile span {
+  font-size: clamp(1.6rem,2.6vw,2.35rem);
+  font-weight: 700;
+  text-align: center;
+  color: #111;
+  text-shadow: 0 1px 8px rgba(255,255,255,.92);
+}
+.home-player-tile:hover {
+  transform: translateY(-2px);
+  border-color: var(--blue);
+  box-shadow: 0 11px 30px rgba(0,0,0,.14);
+}
+body.theme-terminal.theme-dracula .home-player-tile::after { background: rgba(40,42,54,.57); }
+body.theme-terminal.theme-dracula .home-player-tile span { color: #f8f8f2; text-shadow: 0 1px 10px #21222c; }
+body.theme-glass .home-player-tile { background: rgba(255,255,255,.18); backdrop-filter: blur(10px); }
+body.theme-glass .home-player-tile::after { background: rgba(255,255,255,.32); }
+@media (max-width:900px) {
+  .home-page { min-height: auto; justify-content: flex-start; }
+  .home-page .home-tiles { width: 100%; }
+  .home-player-tile { min-height: 220px; }
+}
+@media (max-width:760px) {
+  .home-page .home-tiles { grid-template-columns: 1fr; gap: 16px; }
+  .home-player-tile { min-height: 180px; }
+}
+
+/* Career timeline */
+
+.timeline-page { max-width: none; }
+.timeline-wrap > h1 { margin-bottom: 8px; }
+.timeline-scroll {
+  overflow-x: auto;
+  padding: 18px 4px 28px;
+  scrollbar-width: thin;
+}
+.career-timeline {
+  --timeline-card: 340px;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  width: max-content;
+  min-width: 100%;
+  padding: 48px 12px 0;
+}
+.career-timeline::before {
+  content: "";
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  top: 20px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--border);
+}
+.timeline-season-card {
+  position: relative;
+  width: var(--timeline-card);
+  min-width: var(--timeline-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--head);
+  padding: 18px;
+}
+.timeline-dot {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  top: -39px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--blue);
+  border: 4px solid var(--head);
+  box-shadow: 0 0 0 2px var(--blue);
+}
+.timeline-dot:hover { transform: translateX(-50%) scale(1.12); }
+.timeline-season-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+.timeline-season-head span { font-size: 1.15rem; }
+.timeline-season-head em {
+  font-style: normal;
+  font-size: .72rem;
+  padding: 2px 7px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+}
+.timeline-season-card h2 { margin: 0 0 4px; font-size: 1.18rem; }
+.timeline-league-name {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: .9rem;
+  font-weight: 600;
+}
+.timeline-season-card section {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.timeline-season-card section h3 { margin: 0 0 9px; font-size: .95rem; }
+.timeline-topfive {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: tlpos;
+}
+.timeline-topfive li {
+  counter-increment: tlpos;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: .9rem;
+}
+.timeline-topfive li::before {
+  content: counter(tlpos) ".";
+  width: 20px;
+  flex: 0 0 20px;
+}
+.timeline-topfive li span { flex: 1; min-width: 0; }
+.timeline-topfive li b { font-size: .82rem; white-space: nowrap; }
+.timeline-topfive li.focus { background: rgba(255,220,80,.18); }
+.timeline-cup {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.timeline-cup b { color: var(--blue); }
+.timeline-cup span { font-size: .88rem; }
+.timeline-moves {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.timeline-moves b { display: block; margin-bottom: 5px; }
+.timeline-moves ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: .84rem;
+}
+.timeline-moves li { margin: 3px 0; line-height: 1.25; }
+.timeline-moves .muted { display: block; font-size: .84rem; }
+body.theme-terminal.theme-dracula .timeline-season-card { background: #282a36; border-color: #44475a; }
+body.theme-terminal.theme-dracula .career-timeline::before { background: #6272a4; }
+body.theme-terminal.theme-dracula .timeline-dot {
+  background: #bd93f9;
+  border-color: #282a36;
+  box-shadow: 0 0 0 2px #bd93f9;
+}
+body.theme-terminal.theme-dracula .timeline-season-card section { border-top-color: #44475a; }
+body.theme-terminal.theme-dracula .timeline-topfive li.focus { background: #4b4263; }
+body.theme-glass .timeline-season-card { background: rgba(255,255,255,.24); backdrop-filter: blur(12px); }
+@media (max-width:760px) {
+  .career-timeline { --timeline-card: 290px; gap: 18px; }
+  .timeline-moves { grid-template-columns: 1fr; }
+}
+
+/* Typography
+   Dracula shares the Wiki/Glass font sizes; ProggyForever remains for headings. */
+
+body.theme-terminal.theme-dracula { font-size: 16px !important; line-height: 1.5; }
+body.theme-terminal.theme-dracula *,
+body.theme-terminal.theme-dracula *::before,
+body.theme-terminal.theme-dracula *::after {
+  font-size: 16px !important;
+  line-height: 1.5;
+}
+body.theme-terminal.theme-dracula h1, body.theme-terminal.theme-dracula .season-hero h1 {
+  font-size: 32px !important;
+  line-height: 1.18;
+}
+body.theme-terminal.theme-dracula h2, body.theme-terminal.theme-dracula .timeline-season-card h2 {
+  font-size: 24px !important;
+  line-height: 1.22;
+}
+body.theme-terminal.theme-dracula h3,
+body.theme-terminal.theme-dracula .timeline-season-card section h3,
+body.theme-terminal.theme-dracula .group-table-block h3 {
+  font-size: 19px !important;
+  line-height: 1.3;
+}
+body.theme-terminal.theme-dracula .brand { font-size: 20px !important; line-height: 1.2; }
+body.theme-terminal.theme-dracula .brand small { font-size: 13px !important; line-height: 1.2; }
+body.theme-terminal.theme-dracula small,
+body.theme-terminal.theme-dracula .status,
+body.theme-terminal.theme-dracula .season-live,
+body.theme-terminal.theme-dracula .career-nav-club em {
+  font-size: 13px !important;
+  line-height: 1.35;
+}
+body.theme-terminal.theme-dracula .flag, body.theme-terminal.theme-dracula .player-nation {
+  font-size: 18px !important;
+  line-height: 1;
+}
+body:not(.theme-terminal) { font-size: 16px !important; line-height: 1.5; }
+body:not(.theme-terminal) *, body:not(.theme-terminal) *::before, body:not(.theme-terminal) *::after {
+  font-size: 16px !important;
+  line-height: 1.5;
+}
+body:not(.theme-terminal) h1, body:not(.theme-terminal) .season-hero h1 {
+  font-size: 32px !important;
+  line-height: 1.18;
+}
+body:not(.theme-terminal) h2, body:not(.theme-terminal) .timeline-season-card h2 {
+  font-size: 24px !important;
+  line-height: 1.22;
+}
+body:not(.theme-terminal) h3,
+body:not(.theme-terminal) .timeline-season-card section h3,
+body:not(.theme-terminal) .group-table-block h3 {
+  font-size: 19px !important;
+  line-height: 1.3;
+}
+body:not(.theme-terminal) .brand { font-size: 20px !important; line-height: 1.2; }
+body:not(.theme-terminal) .brand small,
+body:not(.theme-terminal) small,
+body:not(.theme-terminal) .status,
+body:not(.theme-terminal) .season-live,
+body:not(.theme-terminal) .career-nav-club em {
+  font-size: 13px !important;
+  line-height: 1.35;
+}
+body:not(.theme-terminal) .flag, body:not(.theme-terminal) .player-nation {
+  font-size: 18px !important;
+  line-height: 1;
+}
+
+/* Dracula: keep highlighted player/team rows readable */
+
+body.theme-terminal.theme-dracula .focus-player td,
+body.theme-terminal.theme-dracula .focus-team td,
+body.theme-terminal.theme-dracula tr.focus-player td,
+body.theme-terminal.theme-dracula tr.focus-team td {
+  color: #111 !important;
+}
+body.theme-terminal.theme-dracula .focus-player td a,
+body.theme-terminal.theme-dracula .focus-team td a,
+body.theme-terminal.theme-dracula tr.focus-player td a,
+body.theme-terminal.theme-dracula tr.focus-team td a {
+  color: #111 !important;
+}
+
+/* Wiki: fixtures-only competitions use exactly the left track of paired layouts */
+
+@media (min-width:981px) {
+  body:not(.theme-terminal):not(.theme-glass) .season-view .season-page > .season-competition:not(.competition-fixture-panel),
+  body.theme-terminal.theme-dracula .season-view .season-page > .season-competition:not(.competition-fixture-panel) {
+    width: calc((100% - 28px) * 0.54) !important;
+    max-width: calc((100% - 28px) * 0.54) !important;
+    box-sizing: border-box;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+ }
+  body:not(.theme-terminal):not(.theme-glass) .season-view .season-page > .season-competition:not(.competition-fixture-panel) .competition-fixtures,
+  body.theme-terminal.theme-dracula .season-view .season-page > .season-competition:not(.competition-fixture-panel) .competition-fixtures,
+  body:not(.theme-terminal):not(.theme-glass) .season-view .season-page > .season-competition:not(.competition-fixture-panel) .fixture-table,
+  body.theme-terminal.theme-dracula .season-view .season-page > .season-competition:not(.competition-fixture-panel) .fixture-table {
+    width: 100% !important;
+    max-width: none !important;
+ }
+}
+
+/* Dracula hybrid typography:
+   Use the same readable sans-serif as Wiki/Glass for normal content.
+   Keep ProggyForever for page/section titles, table headers and headings. */
+
+body.theme-terminal.theme-dracula,
+body.theme-terminal.theme-dracula *,
+body.theme-terminal.theme-dracula *::before,
+body.theme-terminal.theme-dracula *::after {
+  font-family: "Segoe UI",Arial,Helvetica,sans-serif !important;
+}
+body.theme-terminal.theme-dracula :is( h1, h2, h3, h4, h5, h6, th, .brand, .panel-kicker, .season-eyebrow, .career-nav-player b, .season-jump b ),
+body.theme-terminal.theme-dracula :is( h1, h2, h3, h4, h5, h6, th, .brand, .panel-kicker, .season-eyebrow, .career-nav-player b, .season-jump b ) * {
+  font-family: "ProggyForever","ProggyCleanTT","ProggyClean TTF","Lucida Console","DejaVu Sans Mono",monospace !important;
+}
+
+/* ================================================================
+   Stats / visualisation pages
+   ================================================================ */
+
+.stats-wrap { display: grid; gap: 18px; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+.chart-card, .stats-summary { margin-top: 0; }
+.chart-card h2, .stats-summary h2 { margin-top: 0; }
+.chart-note { margin: 0 0 12px; color: #54595d; }
+.chart-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.chart-svg text {
+  font-family: inherit;
+  font-size: 12px;
+  fill: currentColor;
+}
+.chart-axis, .chart-grid {
+  fill: none;
+  stroke: color-mix(in srgb, currentColor 22%, transparent);
+  stroke-width: 1;
+}
+.chart-grid { stroke-dasharray: 4 4; }
+.chart-bar, .chart-line, .chart-point { vector-effect: non-scaling-stroke; }
+.chart-bar { fill: var(--chart-goals); }
+.chart-bar.chart-assists { fill: var(--chart-assists); }
+.chart-bar.chart-clean-sheets { fill: var(--chart-clean-sheets); }
+.chart-bar.chart-contributions { fill: var(--chart-contributions); }
+.chart-line {
+  fill: none;
+  stroke: var(--chart-position);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.chart-point {
+  fill: var(--chart-position);
+  stroke: var(--chart-card-bg, #fff);
+  stroke-width: 2;
+}
+.chart-axis-label, .chart-value-label { opacity: 0.9; }
+.chart-value-label { font-weight: bold; }
+.chart-season-label { font-size: 11px; }
+.chart-empty {
+  min-height: 220px;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  color: #666;
+  padding: 18px;
+  text-align: center;
+}
+body {
+  --chart-goals: #3366cc;
+  --chart-assists: #2a9d8f;
+  --chart-contributions: #c0397d;
+  --chart-clean-sheets: #f4a261;
+  --chart-position: #7b2cbf;
+  --chart-card-bg: #fff;
+}
+body.theme-terminal, body.theme-dracula {
+  --chart-goals: #ff79c6;
+  --chart-assists: #8be9fd;
+  --chart-contributions: #bd93f9;
+  --chart-clean-sheets: #50fa7b;
+  --chart-position: #f1fa8c;
+  --chart-card-bg: #282a36;
+}
+body.theme-glass {
+  --chart-goals: #7cc6fe;
+  --chart-assists: #9be564;
+  --chart-contributions: #d291ff;
+  --chart-clean-sheets: #ffd166;
+  --chart-position: #ff9f7f;
+  --chart-card-bg: rgba(255, 255, 255, 0.25);
+}
+body.theme-glass .chart-note, body.theme-glass .chart-empty { color: rgba(255, 255, 255, 0.9); }
+body.theme-terminal .chart-note,
+body.theme-dracula .chart-note,
+body.theme-terminal .chart-empty,
+body.theme-dracula .chart-empty {
+  color: #d7dadf;
+}
+@media (max-width: 980px) {
+  .stats-grid { grid-template-columns: 1fr; }
+}
+.timeline-league-movement {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.timeline-league-movement b { display: block; margin-bottom: 4px; }
+.timeline-league-movement ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.timeline-league-movement li { margin: 2px 0; }
+.timeline-league-movement .muted { display: block; font-size: 0.92em; }
+@media (max-width: 700px) {
+  .timeline-league-movement { grid-template-columns: 1fr; }
+}
+.profile-page > .lede { margin-top: 0.65em; margin-bottom: 0.65em; }
+.country-flag {
+  width: 30px;
+  height: auto;
+  max-height: 22px;
+  display: inline-block;
+  object-fit: contain;
+  vertical-align: -0.18em;
+  margin-right: 0.32em;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  outline: 0;
+}
+.fixture-team .country-flag, .wikitable .country-flag, .squad-table .country-flag {
+  width: 28px;
+  max-height: 20px;
+  margin-right: 0.28em;
+}
+.home-player-tile .country-flag, .career-nav-player .country-flag, .infobox th .country-flag {
+  width: 36px;
+  max-height: 26px;
+}
+
+/* Consistent, scrollable career statistics across all three profiles. */
+
+.career-stats-scroll { max-width: 100%; overflow-x: auto; }
+.career-stats-scroll .wikitable { min-width: 900px; }
+.career-stats-scroll .wikitable th { white-space: normal; }
+
+/* Keep the same Club-first career overview layout for every player. */
+
+.career-stats-scroll .career-stats-table { min-width: 1250px; }
+.career-stats-table td:first-child { white-space: nowrap; }
+.career-stats-subtotal td, .career-stats-grand-total td {
+  font-weight: 700;
+  border-top: 2px solid currentColor;
+}
+
+/* Wikipedia-style club and international career summaries in player infoboxes.
+   Both summary tables share the same source data as the previous article tables. */
+
+.profile-page .infobox { width: 350px; }
+.profile-page .infobox .infobox-career-heading th {
+  font-size: 0.95em;
+  padding: 6px 8px;
+  text-align: center;
+  scroll-margin-top: 82px;
+}
+.profile-page .infobox .infobox-career-cell {
+  padding: 5px 7px 8px;
+  border-top: 0;
+  width: auto;
+  font-weight: normal;
+}
+.profile-page .infobox .infobox-career-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82em;
+  line-height: 1.4;
+  table-layout: fixed;
+}
+.profile-page .infobox .infobox-career-table th:nth-child(1) { width: 26%; }
+.profile-page .infobox .infobox-career-table th:nth-child(2) { width: 42%; }
+.profile-page .infobox .infobox-career-table th:nth-child(3) { width: 16%; }
+.profile-page .infobox .infobox-career-table th:nth-child(4) { width: 16%; }
+.profile-page .infobox .infobox-career-table th, .profile-page .infobox .infobox-career-table td {
+  padding: 4px 3px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+  vertical-align: top;
+}
+.profile-page .infobox .infobox-career-table th { font-weight: bold; text-align: left; }
+.profile-page .infobox .infobox-career-table td:first-child { width: auto; font-weight: normal; }
+.profile-page .infobox .infobox-career-years { white-space: nowrap; }
+.profile-page .infobox .infobox-career-team { overflow-wrap: break-word; }
+.profile-page .infobox .infobox-career-table .infobox-career-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+
+
+@media (max-width: 760px) {
+  .profile-page .infobox {
+    float: none;
+    width: 100%;
+    margin: 12px 0;
+ }
+}
+
+/* Overview: use the space beside the right-hand career infobox for honours.
+   The following clear keeps the wide Career statistics table below both. */
+
+.profile-page .profile-honours { display: flow-root; min-width: 0; }
+.profile-page .profile-honours .honours {
+  /* Grid places the first club on the left even if there is just one honour group. */
+
+  columns: unset;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 28px;
+  row-gap: 12px;
+  align-items: start;
+}
+.profile-page .profile-honours .honours section { min-width: 0; }
+
+
+
+.profile-page .profile-honours .honours section:only-child { grid-column: 1 / -1; }
+.profile-page .profile-honours #honours { scroll-margin-top: 82px; }
+@media (max-width: 760px) {
+  .profile-page .profile-honours .honours { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ========================================================================== */
+
+/* Full-width character-select home page */
+
+/* The sidebar remains visible on character pages, but not the home screen. */
+
+/* ========================================================================== */
+
+body.is-home .layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  max-width: none;
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(16px, 2.5vw, 48px);
+}
+body.is-home .layout > aside { display: none; }
+body.is-home .home-page { width: 100%; }
+body.is-home .home-page > h1, body.is-home .home-page .home-tiles { width: min(75vw, 1600px); max-width: 100%; }
+body.is-home .home-page .home-tiles { --home-tile-gap: clamp(16px, 1.6vw, 30px); gap: var(--home-tile-gap); }
+body.is-home .home-player-tile { min-height: clamp(280px, 22vw, 410px); }
+@media (max-width: 900px) {
+  body.is-home .home-page > h1, body.is-home .home-page .home-tiles { width: min(100%, 760px); }
+  body.is-home .home-player-tile { min-height: clamp(220px, 32vw, 320px); }
+}
+@media (max-width: 760px) {
+  body.is-home .home-page .home-tiles { grid-template-columns: minmax(0, 1fr); }
+
+}
+
+/* ========================================================================== */
+
+/* Standalone photo gallery page, reached via the small home-page link. */
+
+/* Image captions and sources are configured in data/gallery.js. */
+
+/* ========================================================================== */
+
+.gallery-carousel {
+  position: relative;
+  min-width: 0;
+  min-height: 290px;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #101521;
+  box-shadow: 0 7px 24px rgba(0, 0, 0, .08);
+}
+body.is-gallery .gallery-carousel {
+  width: min(80vw, 1400px);
+  max-width: 100%;
+  height: clamp(440px, 67vh, 850px);
+  min-height: 0;
+  margin: 0 auto;
+}
+.gallery-carousel:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+.gallery-carousel.is-empty {
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  text-align: center;
+  background: linear-gradient(150deg, var(--head), var(--bg));
+}
+.gallery-empty { max-width: 28rem; color: var(--text); }
+.gallery-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  font-size: 2.5rem;
+  line-height: 1;
+  opacity: .7;
+}
+.gallery-empty h2 { margin: 0 0 10px; font-size: clamp(1.6rem, 2.6vw, 2.35rem); }
+.gallery-empty p {
+  margin: 0;
+  font-size: clamp(.95rem, 1.15vw, 1.1rem);
+  opacity: .8;
+}
+.gallery-slides, .gallery-slide { position: absolute; inset: 0; }
+.gallery-slide { margin: 0; }
+.gallery-slide[hidden] { display: none !important; }
+.gallery-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.gallery-slide figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: 55%;
+  overflow-y: auto;
+  padding: 55px 24px 22px;
+  color: #fff;
+  background: linear-gradient(transparent, rgba(0, 0, 0, .82) 60%);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .9);
+}
+.gallery-slide figcaption strong { display: block; font-size: clamp(1.1rem, 1.6vw, 1.45rem); }
+.gallery-slide figcaption span {
+  display: block;
+  margin-top: 5px;
+  font-size: clamp(.85rem, 1vw, 1rem);
+  line-height: 1.4;
+}
+.gallery-count {
+  position: absolute;
+  z-index: 2;
+  top: 15px;
+  left: 16px;
+  padding: 5px 11px;
+  border-radius: 15px;
+  color: #fff;
+  background: rgba(0, 0, 0, .64);
+  font-size: .85rem;
+}
+.gallery-arrow {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  transform: translateY(-50%);
+  border: 1px solid rgba(255, 255, 255, .45);
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(0, 0, 0, .58);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.gallery-arrow:hover, .gallery-dot:hover { background: rgba(0, 0, 0, .82); }
+.gallery-arrow.is-previous { left: 12px; }
+.gallery-arrow.is-next { right: 12px; }
+.gallery-dots {
+  position: absolute;
+  z-index: 2;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  justify-content: flex-end;
+  max-width: 60%;
+}
+.gallery-dot {
+  width: 11px;
+  height: 11px;
+  padding: 0;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, .35);
+  cursor: pointer;
+}
+.gallery-dot[aria-current="true"] { background: #fff; }
+.gallery-arrow:focus-visible, .gallery-dot:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+@media (max-width: 900px) {
+  body.is-gallery .gallery-carousel {
+    width: min(100%, 960px);
+    height: min(60vh, 650px);
+    min-height: 320px;
+ }
+}
+@media (max-width: 760px) {
+
+}
+
+/* Gallery is a separate route; the home page retains just three player tiles. */
+
+body.is-home .home-page .home-actions {
+  display: flex;
+  justify-content: flex-end;
+  width: min(75vw, 1600px);
+  max-width: 100%;
+  margin-top: 18px;
+}
+.home-gallery-link, .gallery-back-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  background: var(--head);
+  text-decoration: none;
+  font-size: .94rem;
+  font-weight: 600;
+  transition: border-color .16s ease, transform .16s ease;
+}
+.home-gallery-link:hover, .gallery-back-link:hover { border-color: var(--blue); transform: translateY(-1px); }
+.home-gallery-link:focus-visible, .gallery-back-link:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+body.is-gallery .layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  max-width: none;
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(16px, 2.5vw, 48px);
+}
+body.is-gallery .layout > aside { display: none; }
+.gallery-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 24px;
+}
+.gallery-page-header { width: min(80vw, 1400px); max-width: 100%; }
+.gallery-page-header h1 { margin: 18px 0 8px; }
+.gallery-page-header p { margin: 0; opacity: .8; }
+@media (max-width: 900px) {
+  body.is-home .home-page .home-actions, .gallery-page-header { width: min(100%, 960px); }
+}
+
+/* Season comparisons: all domestic teams, with missing seasons left as gaps. */
+.comparisons-wrap { display: grid; gap: 16px; }
+.comparisons-wrap > p, .comparisons-wrap > h1 { margin-top: 0; margin-bottom: 0; }
+.comparison-card { min-width: 0; padding: 22px; }
+.comparison-card-header { display: flex; justify-content: space-between; align-items: start; gap: 18px; flex-wrap: wrap; }
+.comparison-card h2 { margin-top: 4px; }
+.comparison-controls { display: flex; align-items: start; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.comparison-team-menu { flex: 1 1 260px; min-width: 0; border: 1px solid var(--border); border-radius: 6px; background: var(--head); }
+.comparison-team-menu summary { cursor: pointer; padding: 10px 12px; min-height: 44px; }
+.comparison-selection-count { margin-left: 8px; opacity: .7; }
+.comparison-team-menu fieldset { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 8px; border: 0; border-top: 1px solid var(--border); margin: 0; padding: 10px; max-height: 300px; overflow-y: auto; }
+.comparison-team-menu legend { padding: 8px 0; font-weight: 600; }
+.comparison-team-choice { display: flex; align-items: center; gap: 8px; min-height: 44px; cursor: pointer; padding: 5px; }
+.comparison-team-choice input { width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--blue); }
+.comparison-team-choice .comparison-swatch { flex-shrink: 0; margin-right: 0; }
+.comparison-controls button { font: inherit; cursor: pointer; min-height: 44px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--head); color: var(--text); }
+.comparison-controls button:hover { border-color: var(--blue); }
+.comparison-selected-teams { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.comparison-team-chip { display: inline-flex; align-items: center; padding: 5px 10px; border: 1px solid var(--border); border-radius: 20px; background: var(--head); }
+.comparison-scroll { width: 100%; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; border: 1px solid var(--border); border-radius: 6px; }
+.comparison-svg { width: 100%; min-width: 820px; height: auto; display: block; }
+.comparisons-page .comparison-svg text { font-size: 13px !important; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.comparison-grid-row line { stroke: var(--border); stroke-width: 1; opacity: .3; }
+.comparison-grid-row text, .comparison-season-label, .comparison-team-label { fill: var(--text); }
+.comparison-relegation-row text { fill: var(--text); font-weight: 600; }
+.comparison-relegation-row rect { fill: var(--text); opacity: .06; }
+.comparison-relegation-row line { stroke: var(--border); stroke-dasharray: 5 5; }
+.comparison-series { color: var(--team-colour); --comparison-line-width: 2.6px; }
+.comparison-series path { fill: none; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.comparison-series .comparison-line-outline { stroke: var(--text); stroke-width: calc(var(--comparison-line-width) + 2px); opacity: .3; }
+.comparison-series .comparison-line { stroke: var(--team-colour); stroke-width: var(--comparison-line-width); }
+.comparison-series circle { fill: var(--team-accent); stroke: var(--team-colour); stroke-width: 1.5; }
+.comparison-career { --comparison-line-width: 4px; }
+.comparison-career .comparison-team-label { font-weight: 700; }
+.comparison-series-dimmed { opacity: .12; }
+.comparison-series-dimmed .comparison-line { stroke: var(--text); stroke-width: 1px; }
+.comparison-series-dimmed :is(circle, text, .comparison-line-outline) { display: none; }
+.comparison-series-selected { --comparison-line-width: 3.2px; }
+.comparison-series-selected.comparison-career { --comparison-line-width: 4px; }
+.comparison-series-selected circle { r: 4.5; }
+.comparison-key { margin: 12px 0; opacity: .8; }
+.comparison-mobile-hint { display: none; }
+.comparison-data summary { cursor: pointer; padding: 12px 0; min-height: 44px; color: var(--blue); }
+.comparison-table caption { text-align: left; padding: 10px 0; color: var(--text); }
+.comparison-table :is(th, td) { white-space: nowrap; }
+.comparison-table td { text-align: center; }
+.comparison-table td.comparison-ranked { background: color-mix(in srgb, hsl(var(--finish-hue) 65% 45%) 22%, var(--head)) !important; color: var(--text); font-weight: 600; }
+.comparison-table td.comparison-unranked { opacity: .65; }
+.comparison-table tbody th { text-align: left; font-weight: 400; }
+.comparison-table tbody th { position: sticky; left: 0; z-index: 1; background: var(--head); }
+.comparison-table .comparison-career-row th { font-weight: 700; }
+.comparison-swatch { position: relative; display: inline-block; width: 24px; height: 3px; background: var(--team-colour); box-shadow: 0 0 0 1px var(--border); margin-right: 8px; vertical-align: middle; }
+.comparison-swatch::after { content: ""; position: absolute; left: 8px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; border-radius: 50%; background: var(--team-accent); border: 1px solid var(--team-colour); box-shadow: 0 0 0 1px var(--border); }
+.comparison-status { margin: 0; }
+.comparison-status:empty { display: none; }
+@media (max-width: 760px) {
+  .comparison-card { padding: 14px; }
+  .comparison-team-menu { flex-basis: 100%; }
+  .comparison-team-menu fieldset { grid-template-columns: minmax(0, 1fr); }
+  .comparison-controls button { flex: 1; }
+  .comparison-card-header { gap: 8px; }
+  .comparison-mobile-hint { display: block; margin: 0 0 10px; opacity: .8; }
+}
+
+/* Career shell: retain the original layout and themes without character imagery. */
+.home-intro { margin: -12px 0 28px; text-align: center; }
+.home-player-tile::before { content: none; }
+.home-player-tile { background: var(--head); }
+body.theme-glass .home-player-tile::after { background: rgba(12,24,35,.25); }
+body.theme-glass .home-player-tile span { color: var(--text); text-shadow: none; }
+.wikitable caption { text-align: left; padding: 8px 0; font-weight: 600; }
+.career-overview-table { width: 100%; white-space: nowrap; }
+.career-overview-table tbody th { text-align: left; }
+.empty-state { padding: 28px 16px !important; text-align: center; }
+.season-card { margin-top: 24px; }
+.season-card .wikitable { width: 100%; }
+
+
+/* Championship tables inherit the Wiki, Dracula and Glass surfaces. */
+:root {
+  --finish-gold: #ffe28a;
+  --finish-silver: #dce1e6;
+  --finish-bronze: #e9bd94;
+  --finish-points: #dcebd5;
+  --finish-classified: #e3ddf1;
+  --finish-dnf: #f3cccc;
+  --finish-text: #202122;
+}
+body.theme-dracula, body.theme-glass {
+  --finish-gold: #615428;
+  --finish-silver: #444a56;
+  --finish-bronze: #624635;
+  --finish-points: #314e3b;
+  --finish-classified: #49405e;
+  --finish-dnf: #633c48;
+  --finish-text: #fff;
+}
+body .wec-table .finish-gold, .wec-legend .finish-gold { background: var(--finish-gold) !important; color: var(--finish-text) !important; }
+body .wec-table .finish-silver, .wec-legend .finish-silver { background: var(--finish-silver) !important; color: var(--finish-text) !important; }
+body .wec-table .finish-bronze, .wec-legend .finish-bronze { background: var(--finish-bronze) !important; color: var(--finish-text) !important; }
+body .wec-table .finish-points, .wec-legend .finish-points { background: var(--finish-points) !important; color: var(--finish-text) !important; }
+body .wec-table .finish-classified, .wec-legend .finish-classified { background: var(--finish-classified) !important; color: var(--finish-text) !important; }
+body .wec-table .finish-dnf, .wec-legend .finish-dnf { background: var(--finish-dnf) !important; color: var(--finish-text) !important; }
+.wec-table { width: 100%; font-variant-numeric: tabular-nums; }
+.wec-table th { white-space: nowrap; }
+.wec-overview { min-width: 680px; }
+.wec-overview td { vertical-align: top; }
+.wec-overview th[scope="row"] { vertical-align: middle; }
+.wec-circuit, .wec-entrant { display: inline-flex; align-items: center; gap: 8px; }
+.wec-table .country-flag, .wec-races h3 .country-flag {
+  width: 24px; height: 16px; object-fit: contain;
+  flex-shrink: 0; vertical-align: middle; margin: 0;
+}
+.wec-crew { list-style: none; padding: 0; margin: 8px 0 0; }
+.wec-crew li { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.wec-number, .wec-car-number { white-space: nowrap; }
+.wec-table .wec-number { font-weight: 700; text-align: center; }
+.wec-table .wec-points { font-weight: 700; }
+.wec-table .wec-finish { text-align: center; min-width: 48px; }
+.wec-standings { min-width: 960px; }
+.wec-standings .flag { text-align: center; width: 44px; }
+.wec-classification { min-width: 800px; }
+.wec-class { display: inline-block; border-radius: 3px; padding: 2px 6px; font-size: .85em; font-weight: 700; color: white; }
+.wec-class-hypercar { background: #b51e2b; }
+.wec-class-gt3 { background: #397326; }
+.wec-class-lmp2 { background: #2458a6; }
+.wec-car { font-style: italic; }
+.wec-gap { white-space: nowrap; }
+.wec-data-note { margin: 24px 0 0; max-width: 1000px; }
+.wec-legend { display: flex; flex-wrap: wrap; gap: 6px; font-size: .85em; }
+.wec-legend span { padding: 3px 10px; border-radius: 3px; }
+.wec-race-links { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 16px 0; }
+.wec-races h3 { display: flex; align-items: center; gap: 10px; margin-top: 0; }
+.wec-races .season-card, #hypercar-standings, #gt3-standings { scroll-margin-top: 24px; }
+@media (max-width: 760px) {
+  .wec-overview { min-width: 620px; }
+  .wec-race-links a { padding: 8px 0; }
+}

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Le Mans Ultimate Career Wiki</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <!-- Keep this order: shared layout, appearance overrides, pages, then phones. -->
+  <link rel="stylesheet" href="styles.css?v=20261025-character-seasons">
+  <link rel="stylesheet" href="styles/appearance.css?v=20261025-character-seasons">
+  <link rel="stylesheet" href="styles/pages.css?v=20261025-character-seasons">
+  <link rel="stylesheet" href="styles/mobile.css?v=20261025-character-seasons">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true">🏁</span>
+      <div>
+        <b>Le Mans Ultimate Career Wiki</b>
+        <small>WEC career archive</small>
+      </div>
+    </div>
+    <div class="header-tools">
+      <label class="character-select-wrap" for="characterSelect">
+        <span>Character</span>
+        <select id="characterSelect" class="character-select" title="Choose character">
+          <option value="">Choose character</option>
+          <option value="rens">Rens Adisea</option>
+          <option value="jordan">Jordan Vale</option>
+          <option value="vasi">Vasiliki</option>
+        </select>
+      </label>
+      <label class="theme-select-wrap" for="themeSelect">
+        <span>Theme</span>
+        <select id="themeSelect" class="theme-select" title="Choose appearance theme">
+          <option value="light">Wiki</option>
+          <option value="dracula">Dracula</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="site-navigation" aria-label="Career navigation">
+      <details id="careerMenu" open>
+        <summary>Browse career <span>Pages &amp; seasons</span></summary>
+        <nav>
+          <a href="#home" data-page="home">Main page</a>
+          <a href="#rens" data-page="rens">Rens Adisea</a>
+          <a href="#jordan" data-page="jordan">Jordan Vale</a>
+          <a href="#vasi" data-page="vasi">Vasiliki</a>
+        </nav>
+        <hr>
+        <small>Navigation</small>
+        <nav id="seasonNav"></nav>
+      </details>
+    </aside>
+    <main id="app" tabindex="-1"></main>
+  </div>
+
+  <script src="data/base.js?v=20261025-character-seasons"></script>
+  <script src="data/2024.js?v=20261025-character-seasons"></script>
+  <script src="js/shared.js?v=20261025-character-seasons"></script>
+  <script src="js/profile.js?v=20261025-character-seasons"></script>
+  <script src="js/season.js?v=20261025-character-seasons"></script>
+  <script src="js/tables.js?v=20261025-character-seasons"></script>
+  <script src="js/home.js?v=20261025-character-seasons"></script>
+  <script src="app.js?v=20261025-character-seasons"></script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,38 @@
+class	pos	number	entrant	points	QAT	ITA	BEL	FRA
+hypercar	1	7	Toyota Gazoo Racing	50	1	1	12
+hypercar	2	50	Ferrari AF Corse	42	7	2	2
+hypercar	3	51	Ferrari AF Corse	36	10	5	1
+hypercar	4	83	AF Corse	25	12	3	5
+hypercar	5	5	Porsche Penske Motorsport	25	5	DNF	3
+hypercar	6	99	Proton Competition	24	8	6	4	DNF
+hypercar	7	20	BMW M Team WRT	18	2	11	13
+hypercar	8	15	BMW M Team WRT	18	4	7	11
+hypercar	9	12	Hertz Team Jota	18	15	4	7
+hypercar	10	94	Peugeot TotalEnergies	15	3	16	15
+hypercar	11	36	Alpine Endurance Team	8	6	15	DNF
+hypercar	12	38	Hertz Team Jota	8	13	DNF	6
+hypercar	13	2	Cadillac Racing	7	9	8	10
+hypercar	14	8	Toyota Gazoo Racing	4	17	9	9
+hypercar	15	63	Lamborghini Iron Lynx	4	11	13	8
+hypercar	16	11	Isotta Fraschini	1	16	10	DNF	DNF
+hypercar	17	35	Alpine Endurance Team	0	14	12	DNF
+hypercar	18	93	Peugeot TotalEnergies	0	18	17	16
+hypercar	19	6	Porsche Penske Motorsport	0	19	14	14
+gt3	1	55	Vista AF Corse	54	1	1	8
+gt3	2	46	Team WRT	36	2	2	13
+gt3	3	27	Heart of Racing Team	27	4	3	DNF	DNF
+gt3	4	85	Iron Dames	27	12	9	1
+gt3	5	31	Team WRT	26	5	6	6
+gt3	6	82	TF Sport	26	9	7	2	DNF
+gt3	7	91	Manthey Ema	20	6	4	DNF	DNF
+gt3	8	78	Akkodis ASP Team	16	7	12	5
+gt3	9	87	Akkodis ASP Team	16	8	13	4
+gt3	10	81	TF Sport	16	10	11	3
+gt3	11	777	D'Station Racing	15	3	DNF	DNF	DNF
+gt3	12	92	Manthey PureRxing	10	11	5	DNF
+gt3	13	60	Iron Lynx	10	DNF	8	7	DNF
+gt3	14	54	Vista AF Corse	3	16	10	9	DNF
+gt3	15	95	United Autosports	1	14	16	10
+gt3	16	59	United Autosports	0	13	14	11
+gt3	17	77	Proton Racing	0	15	15	DNF
+gt3	18	88	Proton Racing	0	17	17	12

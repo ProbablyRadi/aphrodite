@@ -1,0 +1,703 @@
+/* Glass appearance with a neutral background. */
+
+body.theme-glass {
+  --blue: #d8ebff;
+  --border: rgba(255,255,255,.28);
+  --light: rgba(255,255,255,.12);
+  --head: rgba(14,24,34,.44);
+  --text: #f7fbff;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 20% 10%, #365972 0%, transparent 65%), linear-gradient(135deg, #162838, #101922) fixed;
+  color: #f7fbff;
+}
+body.theme-glass header {
+  background: rgba(9,18,28,.62);
+  border-bottom-color: rgba(255,255,255,.18);
+  backdrop-filter: blur(18px) saturate(130%);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+  box-shadow: 0 8px 28px rgba(0,0,0,.16);
+}
+body.theme-glass .brand,
+body.theme-glass h1,
+body.theme-glass h2,
+body.theme-glass h3,
+body.theme-glass .career-nav-player b {
+  color: #fff;
+}
+body.theme-glass .brand small,
+body.theme-glass .muted,
+body.theme-glass .career-nav-player small,
+body.theme-glass .career-nav-clubname,
+body.theme-glass .season-breadcrumb,
+body.theme-glass .season-eyebrow,
+body.theme-glass .season-subtitle,
+body.theme-glass .season-kpis span,
+body.theme-glass .season-record span,
+body.theme-glass .panel-kicker,
+body.theme-glass .season-results-head p,
+body.theme-glass .analysis-summary span,
+body.theme-glass .analysis-table .rank {
+  color: rgba(244,249,255,.72);
+}
+body.theme-glass a { color: #d9edff; }
+body.theme-glass a:hover { color: #fff; }
+body.theme-glass .season-tabs button, body.theme-glass .season-tabs-nav a {
+  background: rgba(10,20,30,.48);
+  color: #fff;
+  border-color: rgba(255,255,255,.28);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+body.theme-glass .season-tabs button:hover, body.theme-glass .season-tabs-nav a:hover {
+  background: rgba(28,47,63,.62);
+}
+body.theme-glass .layout>aside,
+body.theme-glass .wikitable,
+body.theme-glass .fixture-table,
+body.theme-glass .infobox,
+body.theme-glass .card,
+body.theme-glass .season-card,
+body.theme-glass .season-competition,
+body.theme-glass .analysis-callout,
+body.theme-glass .analysis-summary div,
+body.theme-glass .toc,
+body.theme-glass .season-jump,
+body.theme-glass .season-hero,
+body.theme-glass .season-tabs-nav {
+  background: rgba(12,24,35,.50);
+  color: #f7fbff;
+  border-color: rgba(255,255,255,.24);
+  backdrop-filter: blur(16px) saturate(125%);
+  -webkit-backdrop-filter: blur(16px) saturate(125%);
+  box-shadow: 0 12px 34px rgba(0,0,0,.16);
+}
+body.theme-glass .layout>aside {
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,.20);
+  border-radius: 10px;
+  height: max-content;
+}
+body.theme-glass .wikitable th,
+body.theme-glass .fixture-table .scorecell,
+body.theme-glass .fixture-table .round td,
+body.theme-glass .infobox th,
+body.theme-glass .season-kpis div {
+  background: rgba(12,24,35,.62);
+  color: #fff;
+  border-color: rgba(255,255,255,.22);
+}
+body.theme-glass .wikitable td, body.theme-glass .fixture-table td, body.theme-glass .infobox td {
+  border-color: rgba(255,255,255,.18);
+}
+body.theme-glass .wikitable tr:nth-child(even) td, body.theme-glass .fixture-row:nth-child(even) {
+  background: rgba(255,255,255,.055);
+}
+body.theme-glass .fixture-table .round-separator th {
+  color: #fff;
+  border-bottom-color: rgba(255,255,255,.24);
+}
+body.theme-glass .career-nav-main.active, body.theme-glass .career-nav-club a.active {
+  background: rgba(255,255,255,.13);
+  color: #fff;
+}
+body.theme-glass .career-nav-club a.active { border-left-color: #d7ecff; }
+body.theme-glass .focus-player td, body.theme-glass .focus-team td {
+  background: rgba(255,224,120,.20) !important;
+  color: #fff;
+}
+body.theme-glass .fixture-table td.team.winner { background: rgba(92,190,112,.20); }
+body.theme-glass .interactive-table thead .sortable-head:hover { background: rgba(255,255,255,.12); }
+body.theme-glass .sort-indicator { color: #fff; }
+body.theme-glass ::selection { background: #d9edff; color: #0b1720; }
+
+/* Softer terminal palette */
+
+body.theme-terminal {
+  --blue: #9fcf8a;
+  --border: #35513a;
+  --light: #15251a;
+  --head: #112017;
+  --text: #b8d7ab;
+  background: #0a100c;
+  color: #b8d7ab;
+  text-shadow: none;
+}
+body.theme-terminal header {
+  background: #0d1510;
+  border-bottom-color: #263b2a;
+  box-shadow: 0 1px 0 rgba(159,207,138,.05);
+}
+body.theme-terminal .brand,
+body.theme-terminal h1,
+body.theme-terminal h2,
+body.theme-terminal h3,
+body.theme-terminal .card h3,
+body.theme-terminal .competition h3,
+body.theme-terminal .fixture-table .round-separator th,
+body.theme-terminal .season-jump b,
+body.theme-terminal .career-nav-player b {
+  color: #c6dfbb;
+}
+body.theme-terminal a { color: #9fcf8a; }
+body.theme-terminal a:hover { color: #c4e0b7; }
+body.theme-terminal .muted,
+body.theme-terminal .brand small,
+body.theme-terminal .fixture-note,
+body.theme-terminal .career-nav-player small,
+body.theme-terminal .career-nav-clubname,
+body.theme-terminal .season-breadcrumb,
+body.theme-terminal .season-eyebrow,
+body.theme-terminal .season-subtitle,
+body.theme-terminal .season-kpis span,
+body.theme-terminal .season-record span,
+body.theme-terminal .panel-kicker,
+body.theme-terminal .season-results-head p,
+body.theme-terminal .analysis-summary span,
+body.theme-terminal .analysis-table .rank {
+  color: #789574;
+}
+body.theme-terminal header input, body.theme-terminal .season-tabs button, body.theme-terminal .season-tabs-nav a {
+  background: #111d15;
+  color: #b8d7ab;
+  border-color: #35513a;
+}
+body.theme-terminal header input::placeholder { color: #647c62; }
+body.theme-terminal header input:focus,
+body.theme-terminal body.theme-terminal .season-tabs button:hover,
+body.theme-terminal .season-tabs-nav a:hover {
+  background: #192a1e;
+}
+body.theme-terminal .wikitable,
+body.theme-terminal .fixture-table,
+body.theme-terminal .infobox,
+body.theme-terminal .card,
+body.theme-terminal .season-card,
+body.theme-terminal .season-competition,
+body.theme-terminal .analysis-callout,
+body.theme-terminal .analysis-summary div,
+body.theme-terminal .toc,
+body.theme-terminal .season-jump {
+  background: #0f1912;
+  color: #b8d7ab;
+  border-color: #304936;
+}
+body.theme-terminal .wikitable th,
+body.theme-terminal .fixture-table .scorecell,
+body.theme-terminal .fixture-table .round td,
+body.theme-terminal .infobox th,
+body.theme-terminal .season-kpis div {
+  background: #15241a;
+  color: #c6dfbb;
+  border-color: #304936;
+}
+body.theme-terminal .wikitable td, body.theme-terminal .fixture-table td, body.theme-terminal .infobox td {
+  border-color: #2a4030;
+}
+body.theme-terminal .wikitable tr:nth-child(even) td, body.theme-terminal .fixture-row:nth-child(even) {
+  background: #111d15;
+}
+body.theme-terminal .fixture-table .round-separator th {
+  color: #b8d7ab;
+  border-bottom-color: #35513a;
+}
+body.theme-terminal .season-hero {
+  background: linear-gradient(180deg,#15241a 0,#0d1510 100%);
+  border-color: #304936;
+}
+body.theme-terminal .season-record { border-top-color: #263b2a; }
+body.theme-terminal .competition-heading, body.theme-terminal .season-results-head {
+  border-bottom-color: #35513a;
+}
+body.theme-terminal .career-nav-player { border-bottom-color: #263b2a; }
+body.theme-terminal .career-nav-main.active, body.theme-terminal .career-nav-club a.active {
+  background: #192a1e;
+  color: #c4e0b7;
+}
+body.theme-terminal .career-nav-club a.active { border-left-color: #8fbd7c; }
+body.theme-terminal .note {
+  background: #111d15;
+  border-left-color: #8fbd7c;
+  color: #c6dfbb;
+}
+body.theme-terminal .status, body.theme-terminal .season-live, body.theme-terminal .career-nav-club em {
+  background: #223122;
+  border-color: #688562;
+  color: #c4e0b7;
+}
+body.theme-terminal .player-nation, body.theme-terminal .flag { filter: saturate(.85) brightness(.95); }
+body.theme-terminal ::selection { background: #8fbd7c; color: #0b120d; }
+body.theme-terminal .sort-indicator { color: #8fbd7c; }
+
+/* Readable notification/callout boxes in Glass mode */
+
+body.theme-glass .note, body.theme-glass .analysis-note {
+  background: rgba(7,16,24,.82);
+  color: #f8fbff;
+  border: 1px solid rgba(255,255,255,.22);
+  border-left: 4px solid rgba(183,220,255,.92);
+  backdrop-filter: blur(18px) saturate(120%);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+  box-shadow: 0 10px 28px rgba(0,0,0,.24);
+}
+body.theme-glass .note a, body.theme-glass .analysis-note a { color: #e7f4ff; }
+body.theme-glass .analysis-callout { background: rgba(7,16,24,.76); color: #f8fbff; }
+body.theme-glass .analysis-callout span { color: rgba(248,251,255,.82); }
+.competition-standings { min-width: 0; }
+.group-table {
+  width: 100%;
+  font-size: 12px;
+  margin: 0;
+}
+.comp-standings td, .group-table th, .group-table td { padding: 4px 5px; text-align: center; }
+.group-table .stand-team { text-align: left; }
+.group-table .flag { width: 34px; font-size: 17px; }
+.competition-with-table .competition-layout {
+  display: grid !important;
+  grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr) !important;
+  gap: 24px !important;
+  align-items: start !important;
+  width: 100% !important;
+}
+.competition-with-table .competition-fixtures, .competition-with-table .competition-standings {
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+.competition-with-table .fixture-table,
+.competition-with-table .competition-side-table,
+.competition-with-table .comp-standings,
+.competition-with-table .group-table {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Keep the two-column layout until genuinely narrow screens. */
+
+@media (max-width:860px) {
+  .competition-with-table .competition-layout { grid-template-columns: 1fr !important; }
+}
+
+/* True two-panel competition layout: fixtures and standings are separate sibling boxes */
+
+.competition-pair {
+  display: grid;
+  align-items: start;
+  margin: 0 0 18px;
+  scroll-margin-top: 82px;
+}
+.competition-pair .competition-fixture-panel {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  min-width: 0;
+}
+.competition-pair .competition-standings-panel { width: 100%; min-width: 0; }
+.competition-pair .competition-side-table {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+.competition-pair .fixture-table, .competition-pair .comp-standings, .competition-pair .group-table {
+  width: 100% !important;
+  max-width: none !important;
+}
+body.theme-glass .competition-pair { max-width: 1420px; }
+@media (max-width:860px) {
+  .competition-pair { grid-template-columns: 1fr; }
+}
+
+/* Fix round separators so dark themes do not show white strip boxes between rounds */
+
+body.theme-terminal .fixture-table .round-separator th {
+  border-top-color: #0f1912 !important;
+  background: #0f1912 !important;
+}
+body.theme-glass .fixture-table .round-separator th {
+  border-top-color: rgba(7,16,24,.62) !important;
+  background: rgba(8,18,28,.70) !important;
+}
+
+/* Use a stronger split layout for competition fixtures + side tables */
+
+body.theme-glass .competition-pair, body.theme-light .competition-pair { max-width: none !important; }
+.competition-pair .competition-standings-panel { align-self: start; }
+.competition-pair .competition-standings-panel > .competition-side-table,
+.competition-pair .competition-standings-panel .competition-side-table {
+  min-height: 0;
+}
+@media (max-width:980px) {
+  .competition-pair { grid-template-columns: 1fr !important; }
+}
+
+/* Wider season competition layouts so side standings fit without horizontal scroll */
+
+.layout { max-width: 1880px; grid-template-columns: 220px minmax(0,1fr); }
+.season-page { width: 100%; max-width: none; }
+.competition-pair {
+  grid-template-columns: minmax(0,1.08fr) minmax(620px,.92fr) !important;
+  gap: 28px !important;
+  width: 100%;
+  max-width: none !important;
+}
+.competition-pair .competition-standings-panel,
+.competition-pair .competition-side-table,
+.competition-pair .table-scroll {
+  overflow-x: visible !important;
+  max-width: none !important;
+}
+.competition-pair .comp-standings, .competition-pair .group-table {
+  width: 100% !important;
+  min-width: 0 !important;
+  table-layout: auto !important;
+}
+.competition-pair .comp-standings th,
+.competition-pair .comp-standings td,
+.competition-pair .group-table th,
+.competition-pair .group-table td {
+  white-space: nowrap;
+}
+.competition-pair .comp-standings .stand-team, .competition-pair .group-table .stand-team {
+  min-width: 180px;
+  white-space: normal;
+}
+.competition-pair .comp-standings .flag, .competition-pair .group-table .flag { width: 38px; }
+.competition-pair .panel-kicker { font-size: 13px; }
+.competition-pair .group-table-block h3 { font-size: 20px; }
+
+/* Terminal can use even more width */
+
+@media (max-width:1350px) {
+  .competition-pair { grid-template-columns: minmax(0,1fr) minmax(520px,.9fr) !important; }
+}
+@media (max-width:1100px) {
+  .competition-pair { grid-template-columns: 1fr !important; }
+  .competition-pair .competition-standings-panel { max-width: 100%; }
+  .competition-pair .table-scroll { overflow-x: auto !important; }
+}
+
+/* Match right-side standings/group table typography in Terminal mode */
+
+/* More breathing room between competition sections in every theme */
+
+.season-competition, .competition-pair { margin-bottom: 34px !important; }
+.season-results-head { margin-bottom: 22px !important; }
+@media (max-width:760px) {
+  .season-competition, .competition-pair { margin-bottom: 24px !important; }
+}
+
+/* Exact typography match between fixture tables and right-hand standings/group tables */
+
+.competition-pair .comp-standings, .competition-pair .group-table {
+  font-size: 18px !important;
+  line-height: 1.25 !important;
+}
+.competition-pair .comp-standings th,
+.competition-pair .comp-standings td,
+.competition-pair .group-table th,
+.competition-pair .group-table td {
+  font-size: inherit !important;
+  line-height: inherit !important;
+  padding: 4px 7px !important;
+}
+.competition-pair .comp-standings .flag, .competition-pair .group-table .flag {
+  font-size: 23px !important;
+  line-height: 1 !important;
+}
+
+/* Terminal fixture tables inherit the 1.5x theme size, so side tables must do the same. */
+
+/* Terminal: standings panel is an <aside>; undo the global small-aside font size */
+
+/* Fixtures-only competition panels should match the width of the left column
+   used when a standings/group table is present. */
+
+@media (min-width:981px) {
+  .season-page > .season-competition:not(.competition-fixture-panel) {
+    width: calc((100% - 24px) * 0.59) !important;
+    max-width: none !important;
+ }
+  body.theme-terminal .season-page > .season-competition:not(.competition-fixture-panel),
+  body.theme-glass .season-page > .season-competition:not(.competition-fixture-panel),
+  body:not(.theme-terminal):not(.theme-glass) .season-page > .season-competition:not(.competition-fixture-panel) {
+    width: calc((100% - 24px) * 0.59) !important;
+    max-width: none !important;
+ }
+}
+@media (max-width:980px) {
+  .season-page > .season-competition:not(.competition-fixture-panel) {
+    width: 100% !important;
+    max-width: none !important;
+ }
+}
+
+/* Exact fixtures-only width: match the left track of the two-column competition grid. */
+
+@media (min-width:981px) {
+  /* Light + Glass use 1.08fr / .92fr with a 28px gap => 54% of usable width. */
+
+  body:not(.theme-terminal) .season-page > .season-competition:not(.competition-fixture-panel),
+  body.theme-terminal.theme-dracula .season-page > .season-competition:not(.competition-fixture-panel) {
+    width: calc((100% - 28px) * 0.54) !important;
+    max-width: none !important;
+ }
+
+  /* Terminal uses 1.05fr / .95fr => 52.5% of usable width. */
+
+  .season-page > .season-competition:not(.competition-fixture-panel) .fixture-table {
+    width: 100% !important;
+    max-width: none !important;
+ }
+}
+
+/* Theme dropdown */
+
+.theme-select-wrap {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: #54595d;
+}
+.theme-select-wrap>span { font-weight: 600; }
+.theme-select {
+  font: inherit;
+  padding: 7px 28px 7px 9px;
+  border: 1px solid var(--border);
+  background: var(--head);
+  color: var(--text);
+  cursor: pointer;
+}
+.theme-select:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+body.theme-terminal .theme-select-wrap { color: #789574; }
+body.theme-terminal .theme-select {
+  background: #111d15;
+  color: #b8d7ab;
+  border-color: #35513a;
+}
+body.theme-terminal .theme-select:focus-visible { outline-color: #8fbd7c; }
+body.theme-glass .theme-select-wrap { color: rgba(244,249,255,.78); }
+body.theme-glass .theme-select {
+  background: rgba(8,18,28,.58);
+  color: #f4f9ff;
+  border-color: rgba(255,255,255,.22);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Career overview table alignment */
+
+.profile-page .wikitable th, .profile-page .wikitable td {
+  text-align: center !important;
+  vertical-align: middle;
+}
+.profile-page .wikitable .num { text-align: center !important; }
+
+/* Character selector in top-center header */
+
+.character-select-wrap {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: #54595d;
+  margin-left: auto;
+  margin-right: auto;
+}
+.character-select-wrap>span { font-weight: 600; }
+.character-select {
+  font: inherit;
+  min-width: 170px;
+  padding: 7px 30px 7px 9px;
+  border: 1px solid var(--border);
+  background: var(--head);
+  color: var(--text);
+  cursor: pointer;
+}
+.character-select:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+body.theme-terminal .character-select-wrap { color: #789574; }
+body.theme-terminal .character-select {
+  background: #111d15;
+  color: #b8d7ab;
+  border-color: #35513a;
+}
+body.theme-terminal .character-select:focus-visible { outline-color: #8fbd7c; }
+body.theme-glass .character-select-wrap { color: rgba(244,249,255,.78); }
+body.theme-glass .character-select {
+  background: rgba(8,18,28,.58);
+  color: #f4f9ff;
+  border-color: rgba(255,255,255,.22);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+@media (max-width:760px) {
+  .character-select { min-width: 160px; }
+}
+
+/* Pin Character selector to the true horizontal center of the header */
+
+header { position: sticky; }
+.header-tools { position: relative; }
+.character-select-wrap {
+  position: fixed;
+  left: 50%;
+  top: 32px;
+  transform: translate(-50%,-50%);
+  margin: 0;
+  z-index: 7;
+}
+@media (max-width:760px) {
+  .character-select-wrap {
+    position: static;
+    transform: none;
+    margin: 6px 0 0 0;
+    width: 100%;
+    justify-content: center;
+ }
+}
+
+/* Dracula — Terminal layout/Proggy font with the classic Dracula palette. */
+
+body.theme-terminal.theme-dracula {
+  --blue: #bd93f9;
+  --border: #44475a;
+  --light: #44475a;
+  --head: #343746;
+  --text: #f8f8f2;
+  background: #282a36;
+  color: #f8f8f2;
+  text-shadow: none;
+}
+body.theme-terminal.theme-dracula header {
+  background: #21222c;
+  border-bottom-color: #44475a;
+  box-shadow: 0 1px 0 rgba(189,147,249,.18);
+}
+body.theme-terminal.theme-dracula .brand,
+body.theme-terminal.theme-dracula h1,
+body.theme-terminal.theme-dracula h2,
+body.theme-terminal.theme-dracula h3,
+body.theme-terminal.theme-dracula .card h3,
+body.theme-terminal.theme-dracula .competition h3,
+body.theme-terminal.theme-dracula .fixture-table .round-separator th,
+body.theme-terminal.theme-dracula .season-jump b,
+body.theme-terminal.theme-dracula .career-nav-player b {
+  color: #bd93f9;
+}
+body.theme-terminal.theme-dracula a { color: #8be9fd; }
+body.theme-terminal.theme-dracula a:hover { color: #ff79c6; }
+body.theme-terminal.theme-dracula .muted,
+body.theme-terminal.theme-dracula .brand small,
+body.theme-terminal.theme-dracula .fixture-note,
+body.theme-terminal.theme-dracula .career-nav-player small,
+body.theme-terminal.theme-dracula .career-nav-clubname,
+body.theme-terminal.theme-dracula .season-breadcrumb,
+body.theme-terminal.theme-dracula .season-eyebrow,
+body.theme-terminal.theme-dracula .season-subtitle,
+body.theme-terminal.theme-dracula .season-kpis span,
+body.theme-terminal.theme-dracula .season-record span,
+body.theme-terminal.theme-dracula .panel-kicker,
+body.theme-terminal.theme-dracula .season-results-head p,
+body.theme-terminal.theme-dracula .analysis-summary span,
+body.theme-terminal.theme-dracula .analysis-table .rank {
+  color: #6272a4;
+}
+body.theme-terminal.theme-dracula header input,
+body.theme-terminal.theme-dracula .theme-select,
+body.theme-terminal.theme-dracula .character-select,
+body.theme-terminal.theme-dracula .season-tabs button,
+body.theme-terminal.theme-dracula .season-tabs-nav a {
+  background: #343746;
+  color: #f8f8f2;
+  border-color: #6272a4;
+}
+body.theme-terminal.theme-dracula .theme-select-wrap, body.theme-terminal.theme-dracula .character-select-wrap {
+  color: #f8f8f2;
+}
+body.theme-terminal.theme-dracula header input::placeholder { color: #6272a4; }
+body.theme-terminal.theme-dracula header input:focus,
+body.theme-terminal.theme-dracula .theme-select:focus-visible,
+body.theme-terminal.theme-dracula .character-select:focus-visible {
+  outline-color: #bd93f9;
+}
+body.theme-terminal.theme-dracula .season-tabs button:hover,
+body.theme-terminal.theme-dracula .season-tabs-nav a:hover {
+  background: #44475a;
+}
+body.theme-terminal.theme-dracula .wikitable,
+body.theme-terminal.theme-dracula .fixture-table,
+body.theme-terminal.theme-dracula .infobox,
+body.theme-terminal.theme-dracula .card,
+body.theme-terminal.theme-dracula .season-card,
+body.theme-terminal.theme-dracula .season-competition,
+body.theme-terminal.theme-dracula .analysis-callout,
+body.theme-terminal.theme-dracula .analysis-summary div,
+body.theme-terminal.theme-dracula .toc,
+body.theme-terminal.theme-dracula .season-jump,
+body.theme-terminal.theme-dracula .competition-side-table {
+  background: #282a36;
+  color: #f8f8f2;
+  border-color: #44475a;
+}
+body.theme-terminal.theme-dracula .wikitable th,
+body.theme-terminal.theme-dracula .fixture-table .scorecell,
+body.theme-terminal.theme-dracula .fixture-table .round td,
+body.theme-terminal.theme-dracula .infobox th,
+body.theme-terminal.theme-dracula .season-kpis div {
+  background: #343746;
+  color: #f8f8f2;
+  border-color: #44475a;
+}
+body.theme-terminal.theme-dracula .wikitable td,
+body.theme-terminal.theme-dracula .fixture-table td,
+body.theme-terminal.theme-dracula .infobox td {
+  border-color: #44475a;
+}
+body.theme-terminal.theme-dracula .wikitable tr:nth-child(even) td,
+body.theme-terminal.theme-dracula .fixture-row:nth-child(even) {
+  background: #2d2f3d;
+}
+body.theme-terminal.theme-dracula .fixture-table .round-separator th {
+  background: #21222c;
+  color: #ff79c6;
+  border-top-color: #21222c;
+  border-bottom-color: #6272a4;
+}
+body.theme-terminal.theme-dracula .season-hero {
+  background: linear-gradient(180deg,#343746 0,#21222c 100%);
+  border-color: #44475a;
+}
+body.theme-terminal.theme-dracula .season-record { border-top-color: #44475a; }
+body.theme-terminal.theme-dracula .competition-heading, body.theme-terminal.theme-dracula .season-results-head {
+  border-bottom-color: #6272a4;
+}
+body.theme-terminal.theme-dracula .career-nav-player { border-bottom-color: #44475a; }
+body.theme-terminal.theme-dracula .career-nav-main.active,
+body.theme-terminal.theme-dracula .career-nav-club a.active {
+  background: #44475a;
+  color: #f8f8f2;
+}
+body.theme-terminal.theme-dracula .career-nav-club a.active { border-left-color: #bd93f9; }
+body.theme-terminal.theme-dracula .note {
+  background: #343746;
+  border-left-color: #ff79c6;
+  color: #f8f8f2;
+}
+body.theme-terminal.theme-dracula .status,
+body.theme-terminal.theme-dracula .season-live,
+body.theme-terminal.theme-dracula .career-nav-club em {
+  background: #44475a;
+  border-color: #50fa7b;
+  color: #50fa7b;
+}
+body.theme-terminal.theme-dracula .fixture-table .marker.win { background: #50fa7b; color: #282a36; }
+body.theme-terminal.theme-dracula .fixture-table .marker.draw { background: #f1fa8c; color: #282a36; }
+body.theme-terminal.theme-dracula .fixture-table .marker.loss { background: #ff5555; color: #f8f8f2; }
+body.theme-terminal.theme-dracula .fixture-table .marker.neutral { background: #6272a4; color: #f8f8f2; }
+body.theme-terminal.theme-dracula .fixture-table td.team.winner { background: #30483b; color: #50fa7b; }
+body.theme-terminal.theme-dracula .fixture-table tr.round-end td { box-shadow: inset 0 -1px 0 #6272a4; }
+body.theme-terminal.theme-dracula .sort-indicator { color: #bd93f9; }
+body.theme-terminal.theme-dracula .group-table-block h3 { border-bottom-color: #44475a; color: #ff79c6; }
+body.theme-terminal.theme-dracula .competition-side-table { background: #282a36; }
+body.theme-terminal.theme-dracula .player-nation, body.theme-terminal.theme-dracula .flag { filter: none; }
+body.theme-terminal.theme-dracula ::selection { background: #ff79c6; color: #282a36; }
+

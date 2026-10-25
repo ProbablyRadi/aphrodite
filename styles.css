@@ -1,0 +1,932 @@
+/* Base styling, shared layout, navigation and career dashboards.
+   index.html loads this first, followed by styles/appearance.css,
+   styles/pages.css and styles/mobile.css. Preserve that cascade order. */
+
+:root {
+  --blue: #36c;
+  --border: #a2a9b1;
+  --light: #eaecf0;
+  --head: #f8f9fa;
+  --text: #202122;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  color: var(--text);
+  font: 14px/1.55 Arial,sans-serif;
+  background: #fff;
+}
+header {
+  height: 64px;
+  border-bottom: 1px solid var(--light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  top: 0;
+  background: #fff;
+  z-index: 5;
+}
+.brand {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-family: Georgia,serif;
+}
+.brand small {
+  display: block;
+  font: 11px Arial;
+  color: #54595d;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.brand-icon { font-size: 28px; }
+header input {
+  width: min(420px,42vw);
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+}
+.layout { display: grid; margin: 0 auto; }
+aside nav {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+aside hr {
+  border: 0;
+  border-top: 1px solid var(--light);
+  margin: 18px 0 10px;
+}
+main { min-width: 0; }
+h1, h2 {
+  font-family: Georgia,'Times New Roman',serif;
+  font-weight: 400;
+  border-bottom: 1px solid var(--border);
+  margin: 0 0 12px;
+}
+h1 { line-height: 1.25; }
+h2 { margin-top: 28px; }
+.infobox {
+  float: right;
+  margin: 0 0 18px 24px;
+  border: 1px solid var(--border);
+  border-collapse: collapse;
+  background: #f8f9fa;
+}
+.infobox th {
+  background: #dce6f4;
+  text-align: center;
+  padding: 8px;
+}
+.infobox td {
+  padding: 5px 8px;
+  border-top: 1px solid var(--light);
+  vertical-align: top;
+}
+.infobox td:first-child { font-weight: bold; width: 40%; }
+
+.status {
+  display: inline-block;
+  background: #fff3cd;
+  border: 1px solid #e3c96d;
+  padding: 1px 6px;
+  border-radius: 2px;
+}
+.wikitable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0 18px;
+}
+.wikitable th, .wikitable td { border: 1px solid var(--border); text-align: left; }
+.wikitable th { background: var(--light); font-weight: bold; }
+.wikitable tr:nth-child(even) td { background: #f8f9fa; }
+.num { text-align: right !important; }
+.toc {
+  display: inline-block;
+  border: 1px solid var(--border);
+  background: var(--head);
+  padding: 10px 18px;
+  margin: 12px 0;
+}
+.toc b { display: block; text-align: center; }
+.toc ol { margin: 5px 0; padding-left: 20px; }
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.card {
+  border: 1px solid var(--border);
+  padding: 16px;
+  background: #fff;
+}
+.card h3 {
+  font-family: Georgia,serif;
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+.muted { color: #72777d; }
+.honours { columns: 2; column-gap: 30px; }
+.honours h3 { break-after: avoid; margin-bottom: 3px; }
+.honours ul { margin-top: 4px; }
+.season-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0 14px;
+}
+.season-tabs button {
+  border: 1px solid var(--border);
+  background: var(--head);
+  padding: 6px 9px;
+  color: var(--blue);
+  cursor: pointer;
+}
+.season-tabs button.active {
+  background: #dce6f4;
+  color: #202122;
+  font-weight: bold;
+}
+.competition { margin: 18px 0; }
+.competition h3 {
+  font-family: Georgia,serif;
+  border-bottom: 1px solid var(--light);
+  padding-bottom: 4px;
+}
+.score { white-space: nowrap; }
+.champ { font-weight: bold; }
+.note {
+  border-left: 4px solid #36c;
+  background: #f8f9fa;
+  padding: 8px 12px;
+  margin: 12px 0;
+}
+.clear { clear: both; }
+@media (max-width:760px) {
+  .layout > aside { display: none; }
+  .infobox {
+    float: none;
+    width: 100%;
+    margin: 12px 0;
+ }
+  .cards { grid-template-columns: 1fr; }
+  .honours { columns: 1; }
+  header { padding: 0 14px; }
+  .brand small { display: none; }
+}
+.fixture-list {
+  border: 1px solid #a2a9b1;
+  border-bottom: 0;
+  margin: .4rem 0 1.2rem;
+  background: #fff;
+}
+.fixture-row {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 10px;
+  padding: 7px 10px;
+  border-bottom: 1px solid #c8ccd1;
+  line-height: 1.35;
+}
+.fixture-row:nth-child(even) { background: #f8f9fa; }
+.fixture-no {
+  color: #72777d;
+  text-align: right;
+  padding-right: 8px;
+  border-right: 1px solid #eaecf0;
+}
+.competition h2 { margin-bottom: .35rem; }
+@media (max-width:650px) {
+  .fixture-row { grid-template-columns: 30px 1fr; padding: 7px 6px; }
+}
+
+/* Spreadsheet-style fixture tables */
+
+.fixture-table {
+  border-collapse: collapse;
+  margin: .45rem 0 1.35rem;
+  background: #fff;
+}
+.fixture-table td {
+  border: 1px solid #c8ccd1;
+  padding: 4px 7px;
+  line-height: 1.25;
+}
+.fixture-table .flag {
+  width: 34px;
+  text-align: center;
+  padding: 2px 4px;
+}
+.fixture-table .team { width: 34%; }
+.fixture-table .home { text-align: right; }
+.fixture-table .away { text-align: left; }
+.fixture-table .scorecell {
+  width: 88px;
+  text-align: center;
+  font-weight: 700;
+  white-space: nowrap;
+  background: #f8f9fa;
+}
+.fixture-table .marker { width: 22px; padding: 0; }
+.fixture-table .marker.win { background: #93c47d; }
+.fixture-table .marker.draw { background: #ffd966; }
+.fixture-table .marker.loss { background: #e00000; }
+.fixture-table .marker.neutral { background: #d9d9d9; }
+.fixture-table .round td {
+  background: #f8f9fa;
+  color: #54595d;
+  font-weight: 600;
+}
+.fixture-note {
+  color: #72777d;
+  margin-top: -.8rem;
+  margin-bottom: 1rem;
+}
+@media (max-width:650px) {
+  .fixture-table { font-size: 12px; }
+  .fixture-table td { padding: 4px; }
+  .fixture-table .flag { width: 25px; }
+  .fixture-table .scorecell { width: 68px; }
+  .fixture-table .marker { width: 14px; }
+}
+
+/* Player career summary: two equal columns on desktop */
+
+.career-grid {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: 24px;
+  align-items: start;
+  clear: both;
+}
+.career-grid h2, .career-grid h3 { margin-top: 0; }
+.career-grid table { width: 100%; margin-bottom: 0; }
+@media (max-width:760px) {
+  .career-grid { grid-template-columns: 1fr; gap: 16px; }
+  .career-grid h3 {
+    font-size: 1.5em;
+    border-bottom: 1px solid #a2a9b1;
+    padding-bottom: .2em;
+ }
+}
+.fixture-table .round-separator th {
+  border: 0;
+  border-top: 14px solid #fff;
+  border-bottom: 1px solid #a2a9b1;
+  padding: 7px 8px 4px;
+  text-align: left;
+  background: #fff;
+  font-family: Georgia,'Times New Roman',serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #202122;
+}
+.fixture-table .round-separator:first-child th { border-top-width: 0; padding-top: 3px; }
+
+/* Compact season layout and jump navigation */
+
+.season-jump {
+  border: 1px solid #a2a9b1;
+  background: #f8f9fa;
+  margin: 14px 0 16px;
+  padding: 9px 12px;
+}
+.season-jump b { font-family: Georgia,'Times New Roman',serif; margin-right: 12px; }
+.season-jump div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin-top: 5px;
+}
+.season-jump a { white-space: nowrap; }
+.competition { scroll-margin-top: 78px; }
+@media (max-width:760px) {
+  .season-jump, .fixture-table, .league-record { width: 100%; max-width: 100%; }
+}
+@font-face {
+  font-family: "ProggyForever";
+  src: url("https://raw.githubusercontent.com/ocornut/proggyforever/master/ProggyForever-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+:root {
+  --ui-mono: "ProggyForever","ProggyCleanTT","ProggyClean TTF","Lucida Console","DejaVu Sans Mono",monospace;
+}
+body { font-family: var(--ui-mono); }
+header input, .wikitable, .fixture-table, .infobox, .season-tabs button, .season-jump, .note, aside {
+  font-family: var(--ui-mono);
+}
+
+/* Preserve the encyclopedia/article feel for titles. */
+
+/* Flags are deliberately larger than surrounding text without making rows bulky. */
+
+.fixture-table .flag {
+  line-height: 1;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.infobox th:first-child { line-height: 1.35; }
+@media (max-width:650px) {
+  .fixture-table .flag { font-size: 18px; }
+}
+.brand { font-size: 20px; }
+.brand small { font-size: 12px; }
+.status { font-size: 14px; }
+@media (max-width:650px) {
+  body { font-size: 16px; }
+  .wikitable, .fixture-table { font-size: 14px; }
+  .fixture-table .scorecell { font-size: 16px; }
+  .fixture-table .round td { font-size: 13px; }
+  .season-jump { font-size: 15px; }
+}
+
+/* Wider, larger season-data layout */
+
+body { font-size: 19px; line-height: 1.52; }
+.layout { gap: 32px; padding: 26px 30px; }
+aside { font-size: 16px; }
+h1 { font-size: 34px; }
+h2 { font-size: 25px; }
+.lede { font-size: 19px; }
+.infobox { width: 320px; font-size: 16px; }
+.infobox th { font-size: 20px; }
+.wikitable { font-size: 17px; }
+.wikitable th, .wikitable td { padding: 6px 8px; }
+.season-tabs button { font-size: 17px; }
+.season-jump {
+  font-size: 18px;
+  width: min(980px,100%);
+  max-width: none;
+}
+.season-jump b { font-size: 18px; }
+.league-record { max-width: 980px; }
+.fixture-table { width: min(860px,100%); font-size: 18px; }
+.fixture-table .scorecell { font-size: 19px; }
+.fixture-table .flag { font-size: 23px; }
+.fixture-table .round td { font-size: 15px; }
+.fixture-note { font-size: 15px; }
+@media (min-width:1050px) {
+  .competition { max-width: 900px; }
+  .fixture-table { width: 860px; }
+}
+.season-data-grid {
+  display: grid;
+  grid-template-columns: minmax(0,1.08fr) minmax(0,.92fr);
+  gap: 28px;
+  align-items: start;
+  margin: 14px 0 28px;
+  max-width: 100%;
+}
+.season-data-panel { min-width: 0; scroll-margin-top: 82px; }
+.season-data-panel h2 { margin-top: 12px; }
+.table-scroll { overflow-x: auto; max-width: 100%; }
+.standings-table, .squad-table { margin-top: 8px; white-space: nowrap; }
+.standings-table { min-width: 650px; }
+.squad-table { min-width: 540px; }
+.standings-table .flag {
+  width: 36px;
+  text-align: center;
+  font-size: 20px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+.standings-table .stand-pos { width: 42px; text-align: right; }
+.standings-table .stand-team { text-align: left; min-width: 175px; }
+.squad-table .squad-name { text-align: left; min-width: 180px; }
+.squad-table .focus-player td, .standings-table .focus-team td {
+  font-weight: 700;
+  background: #fff3cd !important;
+}
+.table-note {
+  font-size: 15px;
+  color: #54595d;
+  margin: 0 0 5px;
+}
+.fixture-intro { max-width: 980px; margin-top: 8px; }
+@media (max-width:1100px) {
+  .season-data-grid { grid-template-columns: 1fr; }
+  .season-data-panel { max-width: 900px; }
+  .layout { grid-template-columns: 190px minmax(0,1fr); max-width: 1080px; }
+}
+@media (max-width:760px) {
+  body { font-size: 17px; }
+  .layout { display: block; padding: 16px; }
+  .wikitable, .fixture-table { font-size: 15px; }
+  .fixture-table .scorecell { font-size: 17px; }
+  .fixture-table .flag { font-size: 20px; }
+  .season-data-grid { display: block; }
+  .season-data-panel { margin-bottom: 24px; }
+  .season-jump { font-size: 16px; }
+  .table-note { font-size: 14px; }
+}
+
+/* Readability pass: replace ProggyForever in dense UI with a clearer system sans-serif. */
+
+body, header input, .wikitable, .fixture-table, .infobox, .season-tabs button, .season-jump, .note, aside {
+  font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+}
+h1, h2, h3, .brand, .card h3, .competition h3, .fixture-table .round-separator th, .season-jump b {
+  font-family: Georgia,"Times New Roman",serif;
+}
+.squad-table .player-nation {
+  width: 44px;
+  text-align: center;
+  font-size: 21px;
+  line-height: 1;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.squad-table th[title="Nationality"] { text-align: center; width: 44px; }
+@media (max-width:650px) {
+  .squad-table .player-nation { font-size: 18px; width: 36px; }
+  .squad-table th[title="Nationality"] { width: 36px; }
+}
+
+/* Sticky left navigation + user-selectable font mode */
+
+.layout>aside {
+  position: sticky;
+  top: 86px;
+  align-self: start;
+  max-height: calc(100vh - 104px);
+  overflow-y: auto;
+  padding-bottom: 14px;
+}
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+.header-tools input { width: min(420px,38vw); }
+
+/* Default remains the cleaner readable face. Proggy mode is opt-in. */
+
+body.font-proggy,
+body.font-proggy header input,
+body.font-proggy .wikitable,
+body.font-proggy .fixture-table,
+body.font-proggy .infobox,
+body.font-proggy .season-tabs button,
+body.font-proggy .season-jump,
+body.font-proggy .note,
+body.font-proggy aside,
+body.font-proggy body.font-proggy h1,
+body.font-proggy h2,
+body.font-proggy h3,
+body.font-proggy .brand,
+body.font-proggy .card h3,
+body.font-proggy .competition h3,
+body.font-proggy .fixture-table .round-separator th,
+body.font-proggy .season-jump b {
+  font-family: Georgia,"Times New Roman",serif;
+}
+@media (max-width:900px) {
+  .header-tools { gap: 6px; }
+  .header-tools input { width: min(300px,34vw); }
+}
+@media (max-width:760px) {
+  .layout>aside {
+    position: static;
+    max-height: none;
+    overflow: visible;
+ }
+  .header-tools input { width: min(46vw,240px); }
+}
+@media (max-width:560px) {
+  header {
+    height: auto;
+    min-height: 64px;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding-top: 8px;
+    padding-bottom: 8px;
+ }
+  .header-tools { width: 100%; }
+  .header-tools input { flex: 1; width: auto; }
+}
+
+/* Career-wide opponent analysis */
+
+.analysis-link { font-weight: 600; }
+.analysis-link.active { color: var(--text); text-decoration: none; }
+.analysis-callout {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  border: 1px solid var(--border);
+  background: var(--head);
+  padding: 11px 13px;
+  margin: 14px 0 24px;
+}
+.analysis-callout b { font-family: Georgia,"Times New Roman",serif; }
+.analysis-callout span { color: #54595d; }
+.analysis-callout a { margin-left: auto; font-weight: 600; }
+.analysis-summary {
+  display: grid;
+  grid-template-columns: repeat(9,minmax(90px,1fr));
+  gap: 10px;
+  margin: 16px 0;
+  max-width: 1100px;
+}
+.analysis-summary div {
+  border: 1px solid var(--border);
+  background: var(--head);
+  padding: 10px 12px;
+  text-align: center;
+}
+.analysis-summary b {
+  display: block;
+  font-size: 24px;
+  line-height: 1.1;
+}
+.analysis-summary span {
+  display: block;
+  color: #54595d;
+  font-size: 14px;
+  margin-top: 4px;
+}
+.analysis-note { max-width: 1100px; }
+.analysis-table { width: max(100%, 1190px); min-width: 1190px; }
+.analysis-table .rank {
+  width: 42px;
+  text-align: right;
+  color: #54595d;
+}
+.analysis-table .flag {
+  width: 46px;
+  text-align: center;
+  font-size: 22px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.analysis-table .opponent { min-width: 220px; }
+@media (max-width:1000px) {
+  .analysis-summary { grid-template-columns: repeat(3,1fr); }
+}
+@media (max-width:600px) {
+  .analysis-summary { grid-template-columns: repeat(2,1fr); }
+  .analysis-callout a { margin-left: 0; width: 100%; }
+  .analysis-table .flag { font-size: 19px; }
+}
+
+/* Hybrid redesign: wiki profiles + dedicated season dashboards */
+
+.career-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.career-nav-player {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  padding: 4px 4px 12px;
+  border-bottom: 1px solid var(--light);
+  margin-bottom: 6px;
+}
+.career-nav-player>span { font-size: 26px; }
+.career-nav-player b {
+  display: block;
+  font-family: Georgia,"Times New Roman",serif;
+  line-height: 1.2;
+}
+.career-nav-player small {
+  display: block;
+  color: #72777d;
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.career-nav-main { border-radius: 3px; font-weight: 600; }
+.career-nav-main.active, .career-nav-club a.active {
+  background: #eaecf0;
+  color: #202122;
+  text-decoration: none;
+}
+.career-nav-club { margin-top: 10px; }
+.career-nav-clubname {
+  font-weight: 700;
+  color: #54595d;
+  text-transform: uppercase;
+  letter-spacing: .055em;
+}
+.career-nav-club a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 2px solid transparent;
+}
+.career-nav-club a.active { border-left-color: #36c; }
+.career-nav-club em {
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  background: #fff3cd;
+  border: 1px solid #e3c96d;
+  color: #5c4800;
+  padding: 1px 4px;
+  border-radius: 2px;
+}
+.season-page h1, .season-page h2 { border-bottom: 0; }
+.season-hero {
+  scroll-margin-top: 82px;
+  border: 1px solid #c8ccd1;
+  background: linear-gradient(180deg,#f8f9fa 0,#fff 100%);
+  padding: 22px 24px 18px;
+  margin-bottom: 14px;
+}
+.season-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #72777d;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+.season-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+.season-eyebrow {
+  font-weight: 700;
+  color: #54595d;
+  margin-bottom: 4px;
+}
+.season-page .season-hero h1 {
+  font-size: 42px;
+  line-height: 1;
+  margin: 0 0 7px;
+}
+.season-subtitle {
+  margin: 0;
+  color: #54595d;
+  font-size: 17px;
+}
+.season-live {
+  background: #fff3cd;
+  border: 1px solid #e3c96d;
+  padding: 6px 9px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.season-summary { max-width: 980px; margin: 18px 0 14px; }
+.season-kpis {
+  display: grid;
+  grid-template-columns: repeat(9,minmax(82px,1fr));
+  gap: 7px;
+  margin: 12px 0;
+}
+.season-kpis div {
+  background: #fff;
+  border: 1px solid #c8ccd1;
+  padding: 8px 9px;
+  min-width: 0;
+}
+.season-kpis span {
+  display: block;
+  color: #72777d;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .055em;
+}
+.season-kpis b {
+  display: block;
+  font-size: 18px;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.season-record {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  border-top: 1px solid #eaecf0;
+  padding-top: 12px;
+  margin-top: 12px;
+}
+.season-record span {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .055em;
+  color: #72777d;
+  font-weight: 700;
+}
+.season-record b { font-size: 16px; }
+.season-tabs-nav {
+  width: 100%;
+  max-width: none;
+  background: #fff;
+  margin: 0 0 18px;
+  padding: 10px 0;
+  border-width: 0 0 1px;
+}
+.season-tabs-nav b {
+  display: block;
+  margin: 0 0 7px;
+  font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #54595d;
+}
+.season-tabs-nav div { gap: 7px; }
+.season-tabs-nav a {
+  display: inline-block;
+  border: 1px solid #a2a9b1;
+  background: #f8f9fa;
+  padding: 6px 9px;
+  color: #202122;
+}
+.season-tabs-nav a:hover { background: #eaecf0; text-decoration: none; }
+.season-card {
+  border: 1px solid #c8ccd1;
+  padding: 15px;
+  background: #fff;
+}
+.season-card h2 { font-size: 22px; margin: 1px 0 8px; }
+.panel-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: #72777d;
+}
+.season-card .wikitable { margin-bottom: 0; }
+.season-results-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+  border-bottom: 1px solid #a2a9b1;
+  margin: 28px 0 12px;
+  padding-bottom: 8px;
+  max-width: 980px;
+}
+.season-results-head h2 { margin: 1px 0 0; }
+.season-results-head p {
+  font-size: 14px;
+  color: #54595d;
+  max-width: 500px;
+  margin: 0;
+  text-align: right;
+}
+.season-competition {
+  border: 1px solid #eaecf0;
+  padding: 14px 16px 16px;
+  margin: 0 0 18px;
+  max-width: 930px;
+  background: #fff;
+}
+.competition-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  border-bottom: 1px solid #c8ccd1;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+}
+.season-competition h2 { font-size: 23px; margin: 0; }
+.competition-heading>a { font-size: 12px; white-space: nowrap; }
+.season-competition .fixture-table { margin-bottom: 0; }
+@media (max-width:1250px) {
+  .season-kpis { grid-template-columns: repeat(5,1fr); }
+}
+@media (max-width:760px) {
+  .career-nav-player { display: none; }
+  .season-hero { padding: 16px; }
+  .season-page .season-hero h1 { font-size: 34px; }
+  .season-title-row { display: block; }
+  .season-live { display: inline-block; margin-top: 10px; }
+  .season-kpis { grid-template-columns: repeat(3,1fr); }
+  .season-results-head { display: block; }
+  .season-results-head p { text-align: left; margin-top: 7px; }
+  .season-competition { padding: 10px; }
+  .season-card { padding: 10px; }
+}
+
+/* Coupled appearance modes: clean light theme + Proggy terminal dark theme. */
+
+body.theme-terminal { font-family: var(--ui-mono); }
+body.theme-terminal .brand,
+body.theme-terminal h1,
+body.theme-terminal h2,
+body.theme-terminal h3,
+body.theme-terminal .card h3,
+body.theme-terminal .competition h3,
+body.theme-terminal .fixture-table .round-separator th,
+body.theme-terminal .season-jump b,
+body.theme-terminal .career-nav-player b {
+  font-family: var(--ui-mono);
+  letter-spacing: .015em;
+}
+body.theme-terminal header input, body.theme-terminal .season-tabs button, body.theme-terminal .season-tabs-nav a {
+  font-family: var(--ui-mono);
+}
+body.theme-terminal body.theme-terminal body.theme-terminal .note {
+  background: #0d1c10;
+  border-left-color: #9dff57;
+}
+body.theme-terminal .fixture-table .marker.win { background: #2e7d32; }
+body.theme-terminal .fixture-table .marker.draw { background: #a68a17; }
+body.theme-terminal .fixture-table .marker.loss { background: #8f1f1f; }
+body.theme-terminal .fixture-table .marker.neutral { background: #3a4a3a; }
+
+/* Uniform alignment for restored league and squad tables */
+
+.standings-table, .squad-table { table-layout: fixed; width: 100%; }
+.standings-table th, .standings-table td, .squad-table th, .squad-table td {
+  text-align: center !important;
+  vertical-align: middle;
+}
+
+/* Keep every stats column on the same rhythm while allowing names a little more room. */
+
+.standings-table th, .standings-table td { width: 8%; }
+.standings-table th:nth-child(3), .standings-table td:nth-child(3) { width: 28%; }
+.standings-table th:nth-child(2), .standings-table td:nth-child(2) { width: 7%; }
+.squad-table th, .squad-table td { width: 11%; }
+.squad-table th:nth-child(4), .squad-table td:nth-child(4) { width: 27%; }
+.squad-table th:nth-child(3), .squad-table td:nth-child(3) { width: 8%; }
+.standings-table .stand-pos, .standings-table .stand-team, .squad-table .squad-name {
+  text-align: center !important;
+  min-width: 0;
+}
+.standings-table .flag, .squad-table .player-nation {
+  text-align: center !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width:760px) {
+  .standings-table, .squad-table { table-layout: auto; }
+  .standings-table th, .standings-table td, .squad-table th, .squad-table td { width: auto; }
+  .standings-table th:nth-child(3),
+  .standings-table td:nth-child(3),
+  .squad-table th:nth-child(4),
+  .squad-table td:nth-child(4) {
+    width: auto;
+ }
+}
+
+/* Larger left career navigation */
+
+.layout > aside { font-size: 18px; }
+.career-nav-player b { font-size: 19px; }
+.career-nav-player small { font-size: 12px; }
+.career-nav-main { font-size: 17px; padding: 8px 9px; }
+.career-nav-clubname { font-size: 13px; padding: 2px 9px 5px; }
+.career-nav-club a { font-size: 17px; padding: 7px 9px; }
+.career-nav-club em { font-size: 11px; }
+@media (max-width:1000px) and (min-width:761px) {
+  .layout > aside { font-size: 17px; }
+  .career-nav-main, .career-nav-club a { font-size: 16px; }
+  .career-nav-player b { font-size: 18px; }
+}
+
+/* Round table closure + subtle winner emphasis */
+
+.fixture-table tr.round-end td { box-shadow: inset 0 -1px 0 #c8ccd1; }
+.fixture-table td.team.winner { background: #edf7e9; }
+body.theme-terminal .fixture-table tr.round-end td { box-shadow: inset 0 -1px 0 #396b34; }
+body.theme-terminal .fixture-table td.team.winner { background: #15341a; color: #d4ffae; }
+
+/* Universal column sorting for headed data tables */
+
+.interactive-table thead .sortable-head {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  padding-right: 24px;
+}
+.interactive-table thead .sortable-head:hover { background: #e9ecef; }
+.sort-indicator {
+  position: absolute;
+  right: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: Arial,sans-serif;
+  font-size: 12px;
+  opacity: .62;
+}
+.analysis-table .represented { min-width: 180px; }
+body.theme-terminal .interactive-table thead .sortable-head:hover { background: #17331b; }
+@media (max-width:760px) {
+  .analysis-table .represented { min-width: 140px; }
+}
+
+/* Fit unusually long squad names without shrinking the whole table */
+
+.squad-table .squad-name.compact-name { font-size: 0.84em; letter-spacing: -0.01em; }
+
+
