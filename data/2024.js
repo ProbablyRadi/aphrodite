@@ -113,3 +113,167 @@ Object.entries(STANDINGS_2024).forEach(([category, rows]) => {
     }));
 });
 
+// Jordan Vale — round 1. Preserve the supplied elapsed-time strings verbatim.
+WEC_SEASONS.jordan['2024'].calendar[0].name = 'Qatar 4 Hours';
+WEC_SEASONS.jordan['2024'].calendar[0].results = [
+    [1, 1, 'hy-7', 127, '4:00:33.646'],
+    [2, 2, 'hy-20', 127, '+38.2'],
+    [3, 3, 'hy-94', 127, '+1:08.8'],
+    [4, 4, 'hy-15', 127, '+1:16.2'],
+    [5, 5, 'hy-5', 127, '+1:35.3'],
+    [6, 6, 'hy-36', 127, '+1:44.1'],
+    [7, 7, 'hy-50', 127, '+1:45.6'],
+    [8, 8, 'hy-99', 126, '+1 Lap'],
+    [9, 9, 'hy-2', 126, '+1 Lap'],
+    [10, 10, 'hy-51', 126, '+1 Lap'],
+    [11, 11, 'hy-63', 126, '+1 Lap'],
+    [12, 12, 'hy-83', 126, '+1 Lap'],
+    [13, 13, 'hy-38', 126, '+1 Lap'],
+    [14, 14, 'hy-35', 126, '+1 Lap'],
+    [15, 15, 'hy-12', 126, '+1 Lap'],
+    [16, 16, 'hy-11', 126, '+1 Lap'],
+    [17, 17, 'hy-8', 125, '+2 Laps'],
+    [18, 18, 'hy-93', 125, '+2 Laps'],
+    [19, 19, 'hy-6', 124, '+3 Laps'],
+    [20, 1, 'gt-55', 115, '04:01:11.163'],
+    [21, 2, 'gt-46', 114, '+1 Lap'],
+    [22, 3, 'gt-777', 112, '+3 Laps'],
+    [23, 4, 'gt-27', 112, '+3 Laps'],
+    [24, 5, 'gt-31', 112, '+3 Laps'],
+    [25, 6, 'gt-91', 112, '+3 Laps'],
+    [26, 7, 'gt-78', 112, '+3 Laps'],
+    [27, 8, 'gt-87', 111, '+4 Laps'],
+    [28, 9, 'gt-82', 111, '+4 Laps'],
+    [29, 10, 'gt-81', 111, '+4 Laps'],
+    [30, 11, 'gt-92', 111, '+4 Laps'],
+    [31, 12, 'gt-85', 111, '+4 Laps'],
+    [32, 13, 'gt-59', 110, '+5 Laps'],
+    [33, 14, 'gt-95', 110, '+5 Laps'],
+    [34, 15, 'gt-77', 110, '+5 Laps'],
+    [35, 16, 'gt-54', 110, '+5 Laps'],
+    [36, 17, 'gt-88', 109, '+5 Laps'],
+    ['DNF', null, 'gt-60', 74, '+41 Laps']
+].map(([overall, classPosition, entrant, laps, gap]) => ({
+    entrant, position: typeof overall === 'number' ? overall : null,
+    classPosition, laps, gap,
+    ...(typeof overall === 'string' ? { status: overall } : {})
+}));
+
+// Jordan Vale — round 2. DNF entries retain their supplied order and blank P.
+WEC_SEASONS.jordan['2024'].calendar[1].name = 'Monza 4 Hours';
+WEC_SEASONS.jordan['2024'].calendar[1].results = [
+    [1, 1, 'hy-7', 141, '4:00:14.788'],
+    [2, 2, 'hy-50', 141, '+44.0'],
+    [3, 3, 'hy-83', 141, '+44.5'],
+    [4, 4, 'hy-12', 141, '+59.2'],
+    [5, 5, 'hy-51', 141, '+1:02.0'],
+    [6, 6, 'hy-99', 141, '+1:32.1'],
+    [7, 7, 'hy-15', 140, '+1 Lap'],
+    [8, 8, 'hy-2', 140, '+1 Lap'],
+    [9, 9, 'hy-8', 140, '+1 Lap'],
+    [10, 10, 'hy-11', 140, '+1 Lap'],
+    [11, 11, 'hy-20', 140, '+1 Lap'],
+    [12, 12, 'hy-35', 140, '+1 Lap'],
+    [13, 13, 'hy-63', 140, '+1 Lap'],
+    [14, 14, 'hy-6', 139, '+2 Laps'],
+    [15, 15, 'hy-36', 139, '+2 Laps'],
+    [16, 16, 'hy-94', 138, '+ 3 Laps'],
+    [17, 17, 'hy-93', 137, '+4 Laps'],
+    [18, 1, 'gt-55', 123, '4:00:58.300'],
+    [19, 2, 'gt-46', 123, '+41.0'],
+    [20, 3, 'gt-27', 122, '+1 Lap'],
+    [21, 4, 'gt-91', 122, '+1 Lap'],
+    [22, 5, 'gt-92', 122, '+1 Lap'],
+    [23, 6, 'gt-31', 122, '+1 Lap'],
+    [24, 7, 'gt-82', 122, '+1 Lap'],
+    [25, 8, 'gt-60', 122, '+1 Lap'],
+    [26, 9, 'gt-85', 121, '+2 Laps'],
+    [27, 10, 'gt-54', 121, '+2 Laps'],
+    [28, 11, 'gt-81', 121, '+2 Laps'],
+    [29, 12, 'gt-78', 121, '+2 Laps'],
+    [30, 13, 'gt-87', 121, '+2 Laps'],
+    [31, 14, 'gt-59', 121, '+2 Laps'],
+    [32, 15, 'gt-77', 121, '+2 Laps'],
+    [33, 16, 'gt-95', 121, '+2 Laps'],
+    [34, 17, 'gt-88', 120, '+3 Laps'],
+    ['DNF', null, 'hy-38', 80, '+61 Laps'],
+    ['DNF', null, 'gt-777', 38, '+85 Laps'],
+    ['DNF', null, 'hy-5', 30, '+111 Laps']
+].map(([overall, classPosition, entrant, laps, gap]) => ({
+    entrant, position: typeof overall === 'number' ? overall : null,
+    classPosition, laps, gap,
+    ...(typeof overall === 'string' ? { status: overall } : {})
+}));
+
+// Jordan Vale — round 3. Class gaps and retirement order follow the source.
+WEC_SEASONS.jordan['2024'].calendar[2].name = 'Spa 4 Hours';
+WEC_SEASONS.jordan['2024'].calendar[2].results = [
+    [1, 1, 'hy-51', 97, '4:00:07.440'],
+    [2, 2, 'hy-50', 97, '+9.9'],
+    [3, 3, 'hy-5', 97, '+13.9'],
+    [4, 4, 'hy-99', 97, '+15.6'],
+    [5, 5, 'hy-83', 97, '+25.4'],
+    [6, 6, 'hy-38', 97, '+28.6'],
+    [7, 7, 'hy-12', 97, '+28.9'],
+    [8, 8, 'hy-63', 97, '+34.0'],
+    [9, 9, 'hy-8', 97, '+43.5'],
+    [10, 10, 'hy-2', 97, '+44.6'],
+    [11, 11, 'hy-15', 97, '+51.4'],
+    [12, 12, 'hy-7', 97, '+1:07.3'],
+    [13, 13, 'hy-20', 96, '+1 Lap'],
+    [14, 14, 'hy-6', 96, '+1 Lap'],
+    [15, 15, 'hy-94', 96, '+1 Lap'],
+    [16, 16, 'hy-93', 96, '+1 Lap'],
+    [17, 1, 'gt-85', 87, '4:01:22.270'],
+    [18, 2, 'gt-82', 87, '+4.4'],
+    [19, 3, 'gt-81', 87, '+5.7'],
+    [20, 4, 'gt-87', 87, '+13.0'],
+    [21, 5, 'gt-78', 87, '+22.7'],
+    [22, 6, 'gt-31', 87, '+1:17.5'],
+    [23, 7, 'gt-60', 86, '+1 Lap'],
+    [24, 8, 'gt-55', 86, '+1 Lap'],
+    [25, 9, 'gt-54', 86, '+1 Lap'],
+    [26, 10, 'gt-95', 85, '+2 Laps'],
+    [27, 11, 'gt-59', 85, '+2 Laps'],
+    [28, 12, 'gt-88', 84, '+3 Laps'],
+    [29, 13, 'gt-46', 76, '+11 Laps'],
+    ['DNF', null, 'hy-35', 25, '+72 Laps'],
+    ['DNF', null, 'gt-91', 25, '+62 Laps'],
+    ['DNF', null, 'gt-77', 24, '+63 Laps'],
+    ['DNF', null, 'gt-92', 22, '+65 Laps'],
+    ['DNF', null, 'gt-27', 21, '+66 Laps'],
+    ['DNF', null, 'gt-777', 15, '+72 Laps'],
+    ['DNF', null, 'hy-11', 13, '+84 Laps'],
+    ['DNF', null, 'hy-36', 1, '+96 Laps']
+].map(([overall, classPosition, entrant, laps, gap]) => ({
+    entrant, position: typeof overall === 'number' ? overall : null,
+    classPosition, laps, gap,
+    ...(typeof overall === 'string' ? { status: overall } : {})
+}));
+
+
+// Jordan Vale - round 4 is still running. Blank template places are not results.
+WEC_SEASONS.jordan['2024'].entrants['gt-86'] = {
+    number: '86', team: 'GR Racing', country: null, car: 'Ferrari', category: 'gt3'
+};
+Object.assign(WEC_SEASONS.jordan['2024'].calendar[3], {
+    name: 'Le Mans 8 Hours',
+    inProgress: true,
+    results: [
+        ['hy-99', 66],
+        ['gt-86', 33],
+        ['gt-54', 23],
+        ['gt-91', 16],
+        ['gt-82', 9],
+        ['hy-11', 5],
+        ['gt-777', 5],
+        ['gt-60', 4],
+        ['gt-27', 2]
+    ].map(([entrant, laps]) => ({
+        entrant, position: null, classPosition: null, status: 'DNF', laps, gap: null
+    }))
+});
+
+// Completed classifications drive analytics; the live Le Mans race stays excluded.
+WEC_SEASONS.jordan['2024'].calendar.slice(0, 3).forEach(race => { race.completed = true; });
+WEC_SEASONS.jordan['2024'].calendar[3].pointsMultiplier = 2;

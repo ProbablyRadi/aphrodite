@@ -1,4 +1,4 @@
-/* Glass appearance with a neutral background. */
+/* Glass appearance over a softly blurred Le Mans pit-straight background. */
 
 body.theme-glass {
   --blue: #d8ebff;
@@ -7,7 +7,8 @@ body.theme-glass {
   --head: rgba(14,24,34,.44);
   --text: #f7fbff;
   min-height: 100vh;
-  background: radial-gradient(ellipse at 20% 10%, #365972 0%, transparent 65%), linear-gradient(135deg, #162838, #101922) fixed;
+  background: linear-gradient(rgba(8,18,28,.18), rgba(8,18,28,.30)),
+    url('../assets/backgrounds/le-mans-glass-bg.png') center center / cover fixed no-repeat #101922;
   color: #f7fbff;
 }
 body.theme-glass header {

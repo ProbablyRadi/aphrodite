@@ -443,9 +443,9 @@ body.theme-dracula .chart-empty {
 }
 .profile-page > .lede { margin-top: 0.65em; margin-bottom: 0.65em; }
 .country-flag {
-  width: 30px;
-  height: auto;
-  max-height: 22px;
+  width: 36px;
+  height: 24px;
+  max-height: 24px;
   display: inline-block;
   object-fit: contain;
   vertical-align: -0.18em;
@@ -456,8 +456,8 @@ body.theme-dracula .chart-empty {
   outline: 0;
 }
 .fixture-team .country-flag, .wikitable .country-flag, .squad-table .country-flag {
-  width: 28px;
-  max-height: 20px;
+  width: 36px;
+  max-height: 24px;
   margin-right: 0.28em;
 }
 .home-player-tile .country-flag, .career-nav-player .country-flag, .infobox th .country-flag {
@@ -863,24 +863,15 @@ body.theme-glass .home-player-tile span { color: var(--text); text-shadow: none;
 .season-card .wikitable { width: 100%; }
 
 
-/* Championship tables inherit the Wiki, Dracula and Glass surfaces. */
+/* Result fills sampled from the supplied spreadsheet, identical in every theme. */
 :root {
-  --finish-gold: #ffe28a;
-  --finish-silver: #dce1e6;
-  --finish-bronze: #e9bd94;
-  --finish-points: #dcebd5;
-  --finish-classified: #e3ddf1;
-  --finish-dnf: #f3cccc;
-  --finish-text: #202122;
-}
-body.theme-dracula, body.theme-glass {
-  --finish-gold: #615428;
-  --finish-silver: #444a56;
-  --finish-bronze: #624635;
-  --finish-points: #314e3b;
-  --finish-classified: #49405e;
-  --finish-dnf: #633c48;
-  --finish-text: #fff;
+  --finish-gold: #ffd700;
+  --finish-silver: #c0c0c0;
+  --finish-bronze: #cd7f32;
+  --finish-points: #b6d7a8;
+  --finish-classified: #b4a7d6;
+  --finish-dnf: #ea9999;
+  --finish-text: #000;
 }
 body .wec-table .finish-gold, .wec-legend .finish-gold { background: var(--finish-gold) !important; color: var(--finish-text) !important; }
 body .wec-table .finish-silver, .wec-legend .finish-silver { background: var(--finish-silver) !important; color: var(--finish-text) !important; }
@@ -895,7 +886,7 @@ body .wec-table .finish-dnf, .wec-legend .finish-dnf { background: var(--finish-
 .wec-overview th[scope="row"] { vertical-align: middle; }
 .wec-circuit, .wec-entrant { display: inline-flex; align-items: center; gap: 8px; }
 .wec-table .country-flag, .wec-races h3 .country-flag {
-  width: 24px; height: 16px; object-fit: contain;
+  width: 36px; height: 24px; object-fit: contain;
   flex-shrink: 0; vertical-align: middle; margin: 0;
 }
 .wec-crew { list-style: none; padding: 0; margin: 8px 0 0; }
@@ -904,7 +895,38 @@ body .wec-table .finish-dnf, .wec-legend .finish-dnf { background: var(--finish-
 .wec-table .wec-number { font-weight: 700; text-align: center; }
 .wec-table .wec-points { font-weight: 700; }
 .wec-table .wec-finish { text-align: center; min-width: 48px; }
-.wec-standings { min-width: 960px; }
+body .season-card .wec-standings {
+  --wec-compact-width: 44px;
+  --wec-entrant-width: 244px;
+  table-layout: fixed;
+  width: calc(var(--wec-entrant-width) + (var(--wec-column-count) - 1) * var(--wec-compact-width));
+  min-width: 0;
+  font-size: 14px;
+  line-height: 1.35;
+}
+body .season-card .wec-standings :is(th, td) {
+  padding: 3px 2px;
+  text-align: center !important;
+  width: var(--wec-compact-width);
+  min-width: 0;
+}
+.season-card .wec-standings :is(th, td):nth-child(4) {
+  width: var(--wec-entrant-width);
+  white-space: normal;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.season-card .wec-standings thead .sortable-head { padding: 4px 2px 8px; font-size: 13px; }
+.season-card .wec-standings .sort-indicator {
+  display: none;
+  top: auto;
+  bottom: 0;
+  right: 2px;
+  transform: none;
+  font-size: 8px;
+  line-height: 1;
+}
+.season-card .wec-standings :is([data-sort-dir="asc"], [data-sort-dir="desc"]) .sort-indicator { display: block; }
 .wec-standings .flag { text-align: center; width: 44px; }
 .wec-classification { min-width: 800px; }
 .wec-class { display: inline-block; border-radius: 3px; padding: 2px 6px; font-size: .85em; font-weight: 700; color: white; }
@@ -922,4 +944,178 @@ body .wec-table .finish-dnf, .wec-legend .finish-dnf { background: var(--finish-
 @media (max-width: 760px) {
   .wec-overview { min-width: 620px; }
   .wec-race-links a { padding: 8px 0; }
+}
+
+/* Individual classifications follow the supplied spreadsheet colour key. */
+.wec-classification {
+  --race-header: #93c47d;
+  --race-header-text: #111;
+  --race-hypercar: #e7effb;
+  --race-gt3: #f5fbea;
+  --race-lmp2: #e9eefb;
+}
+body.theme-dracula .wec-classification, body.theme-glass .wec-classification {
+  --race-header: #496d41;
+  --race-header-text: #fff;
+  --race-hypercar: #24374c;
+  --race-gt3: #293f2c;
+  --race-lmp2: #30354e;
+}
+body .wec-classification caption {
+  padding: 0;
+  background: var(--race-header);
+  color: var(--race-header-text);
+  border: 1px solid var(--border);
+  border-bottom: 0;
+}
+.wec-race-caption { display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; gap: 8px; padding: 6px; text-align: center; }
+.wec-race-caption > :first-child { text-align: left; }
+body .wec-classification thead th { background: var(--race-header) !important; color: var(--race-header-text) !important; text-align: center; }
+body .wec-classification .wec-result-hypercar td { background: var(--race-hypercar); }
+body .wec-classification .wec-result-gt3 td { background: var(--race-gt3); }
+body .wec-classification .wec-result-lmp2 td { background: var(--race-lmp2); }
+body .wec-classification td.wec-class-hypercar { background: #c00000 !important; color: #fff; }
+body .wec-classification td.wec-class-gt3 { background: #6aa84f !important; color: #fff; }
+body .wec-classification td.wec-class-lmp2 { background: #2458a6 !important; color: #fff; }
+body .wec-classification td.wec-number { background: #333 !important; color: #fff; }
+.wec-classification .wec-class-cell, .wec-classification .num { font-weight: 700; }
+.wec-classification .wec-class-cell, .wec-classification .flag { text-align: center; }
+.wec-classification abbr { text-decoration: none; cursor: help; }
+.wec-classification .wec-winning-time { font-weight: 700; }
+
+/* Keep class row tints visible under every theme's alternating-row rules. */
+body .wec-classification .wec-result-hypercar > td:not(.finish-gold, .finish-silver, .finish-bronze, .wec-class-cell, .wec-number) { background: var(--race-hypercar) !important; }
+body .wec-classification .wec-result-gt3 > td:not(.finish-gold, .finish-silver, .finish-bronze, .wec-class-cell, .wec-number) { background: var(--race-gt3) !important; }
+body .wec-classification .wec-result-lmp2 > td:not(.finish-gold, .finish-silver, .finish-bronze, .wec-class-cell, .wec-number) { background: var(--race-lmp2) !important; }
+
+.wec-progress { display: inline-block; margin: 4px 8px 4px 0; padding: 2px 8px; border: 1px solid #b08a31; border-radius: 4px; background: #fff0c2; color: #5e430c; font-size: .85em; font-weight: 700; }
+.wec-winner > .wec-progress { display: block; width: fit-content; }
+body.theme-dracula .wec-progress, body.theme-glass .wec-progress { background: #584827; color: #ffe5a1; }
+
+/* Compact race classifications use colgroups so merged DNF cells stay aligned. */
+body .season-card .wec-classification {
+  table-layout: fixed;
+  width: 756px;
+  min-width: 0;
+  font-size: 14px;
+  line-height: 1.35;
+}
+body .season-card .wec-classification.has-drivers { width: 966px; }
+.wec-classification .wec-col-compact { width: 44px; }
+.wec-classification .wec-col-car { width: 164px; }
+.wec-classification .wec-col-entrant { width: 224px; }
+.wec-classification .wec-col-drivers { width: 210px; }
+.wec-classification .wec-col-gap { width: 104px; }
+body .season-card .wec-classification :is(th, td) {
+  padding: 3px 2px;
+  text-align: center !important;
+  overflow-wrap: anywhere;
+}
+body .season-card .wec-classification .wec-gap { white-space: nowrap; overflow-wrap: normal; }
+.wec-manufacturer { display: flex; align-items: center; gap: 6px; text-align: left; }
+.wec-manufacturer > span { min-width: 0; }
+.manufacturer-badge {
+  display: block;
+  width: 40px;
+  height: 32px;
+  object-fit: contain;
+  flex: 0 0 40px;
+  padding: 1px;
+  border-radius: 3px;
+  background: #fff;
+}
+body .season-card .wec-classification .wec-retirement { text-align: center !important; font-weight: 700; }
+
+/* Centre compact tables; overflowing tables keep a reachable left edge. */
+body .season-page .wikitable { margin-inline: auto; }
+
+/* Spreadsheet-style winner overview, with merged circuit cells and crew rows. */
+body .season-card .wec-overview {
+  table-layout: fixed;
+  width: 788px;
+  min-width: 0;
+  font-size: 14px;
+  line-height: 1.3;
+  margin-bottom: 24px;
+}
+body .season-card .wec-overview-single { width: 500px; }
+.wec-overview-round-col { width: 52px; }
+.wec-overview-flag-col { width: 44px; }
+.wec-overview-circuit-col { width: 116px; }
+.wec-overview-winner-col { width: 244px; }
+body .season-card .wec-overview caption {
+  padding: 5px 8px;
+  text-align: center;
+  background: #93c47d;
+  color: #111;
+  border: 1px solid var(--border);
+  border-bottom: 0;
+  font-weight: 700;
+}
+body.theme-dracula .season-card .wec-overview caption,
+body.theme-glass .season-card .wec-overview caption { background: #496d41; color: #fff; }
+body .season-card .wec-overview :is(th, td) { padding: 2px 4px; height: 28px; }
+body .season-card .wec-overview thead th { text-align: center; }
+body .season-card .wec-overview .wec-round-group :is(th, td) { background: transparent !important; }
+body .season-card .wec-overview :is(.wec-overview-round, .wec-overview-circuit-flag, .wec-overview-circuit) {
+  vertical-align: middle;
+  text-align: center;
+}
+body .season-card .wec-overview .wec-overview-winner-flag { text-align: center; vertical-align: middle; }
+body .season-card .wec-overview .wec-overview-winner { text-align: left; vertical-align: middle; overflow-wrap: anywhere; }
+.wec-overview-circuit .wec-progress { margin: 6px 0 0; font-size: 11px; }
+.wec-overview-winner .wec-progress { margin: 2px 0 2px 5px; font-size: 10px; }
+
+/* Season analytics reuse the existing theme surfaces. */
+.wec-season-overview { margin-top: 36px; scroll-margin-top: 24px; }
+.wec-completion { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin: 20px 0; font-weight: 600; }
+.wec-completion progress { width: min(320px, 100%); height: 12px; accent-color: #3f9ed8; }
+.wec-analytics-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 20px 0; }
+.wec-analytics-kpis > div { display: flex; flex-direction: column; padding: 14px; border: 1px solid var(--border); background: var(--head); border-radius: 6px; gap: 6px; }
+.wec-analytics-kpis span { font-size: .85em; opacity: .8; }
+.wec-analytics-kpis strong { font-size: 30px; line-height: 1.1; }
+.wec-analytics-kpis small { overflow-wrap: anywhere; }
+.wec-chart-note { opacity: .85; }
+.wec-chart-toolbar { display: flex; gap: 8px; margin: 16px 0; }
+.wec-chart-toolbar button { cursor: pointer; padding: 8px 14px; border: 1px solid var(--border); border-radius: 4px; color: var(--text); background: var(--head); font: inherit; }
+.wec-chart-toolbar button:hover { box-shadow: inset 0 0 0 1px var(--blue); }
+.wec-chart-options { margin: 12px 0; border: 1px solid var(--border); border-radius: 4px; padding: 10px 12px; }
+.wec-chart-options summary, .wec-chart-data summary { cursor: pointer; font-weight: 600; }
+.wec-chart-options fieldset { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 6px 16px; border: 0; padding: 14px 0 0; min-width: 0; }
+.wec-chart-options label { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: 14px; }
+.wec-chart-options label > span { flex: 1; }
+.wec-chart-options input { width: 17px; height: 17px; accent-color: var(--blue); flex-shrink: 0; }
+.wec-line-swatch { width: 32px; height: 12px; flex: 0 0 32px; }
+.wec-chart-scroll { max-width: 100%; overflow-x: auto; }
+.wec-points-svg { display: block; width: 100%; min-width: 700px; height: auto; }
+.wec-points-svg text { fill: var(--text); font: 13px Arial, sans-serif; }
+.wec-chart-grid { stroke: var(--border); stroke-opacity: .35; }
+.wec-chart-future { opacity: .45; }
+.wec-points-svg .wec-chart-live { font-size: 10px; }
+.wec-chart-point:hover, .wec-chart-point:focus-visible { r: 7px; stroke: var(--text); stroke-width: 2; outline: none; }
+.wec-chart-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 8px 0 20px; font-size: 13px; }
+.wec-chart-legend > span { display: inline-flex; align-items: center; gap: 7px; }
+.wec-chart-data { margin-top: 16px; }
+body .season-card .wec-points-data { width: auto; min-width: 480px; font-size: 14px; }
+.wec-points-data caption { font-size: 13px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (max-width: 760px) {
+  .wec-analytics-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wec-chart-options fieldset { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* One summary panel: overview left, both entrant standings stacked right.
+   Switch using the panel's available width, including sidebar and padding. */
+.wec-season-summary { container: season-summary / inline-size; }
+.wec-summary-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; align-items: start; }
+.wec-summary-grid > *, .wec-summary-standings > section { min-width: 0; }
+.wec-summary-standings > section + section { margin-top: 24px; }
+.wec-summary-results, .wec-summary-standings { scroll-margin-top: 24px; }
+@container season-summary (min-width: 1496px) {
+  .wec-summary-grid { grid-template-columns: minmax(700px, 1fr) minmax(772px, 1.1fr); gap: 24px; }
+  body .wec-season-summary .wec-summary-results .wec-overview { width: 700px; }
+  body .wec-season-summary .wec-summary-results .wec-overview-single { width: 452px; }
+  .wec-summary-results .wec-overview-round-col { width: 48px; }
+  .wec-summary-results .wec-overview-circuit-col { width: 112px; }
+  .wec-summary-results .wec-overview-winner-col { width: 204px; }
 }

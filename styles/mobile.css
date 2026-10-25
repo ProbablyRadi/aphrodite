@@ -113,7 +113,7 @@
   .profile-page .infobox td { overflow-wrap: anywhere; }
   .profile-page .infobox .infobox-career-years { white-space: normal; }
   .profile-page .infobox .infobox-career-table :is(th, td) { font-size: 13px !important; }
-  .profile-page .infobox .infobox-career-table .country-flag { width: 22px; }
+  .profile-page .infobox .infobox-career-table .country-flag { width: 36px; }
   .toc { display: block; width: 100%; }
   .toc a { display: inline-flex; align-items: center; min-height: 44px; }
   /* Confine wide data to its own scroll region instead of moving the whole page. */
@@ -132,7 +132,7 @@
   .fixture-table .team { width: auto; overflow-wrap: anywhere; }
   .fixture-table .scorecell { width: 62px; }
   .fixture-table .flag { width: 27px; padding: 2px; }
-  .fixture-table .flag .country-flag { width: 22px; margin: 0; }
+  .fixture-table .flag .country-flag { width: 36px; margin: 0; }
   .fixture-table .marker { width: 6px; }
   .chart-scroll .chart-svg { min-width: 560px; }
   /* A vertical timeline fits a phone without sideways swiping through tall cards. */

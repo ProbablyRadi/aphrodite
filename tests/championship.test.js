@@ -29,7 +29,7 @@ test('Every entrant, standing, supplied finish and points value matches the past
     const source = read('tests/fixtures/2024-standings.tsv').trim().split(/\r?\n/).slice(1);
     assert.equal(championship.standings.hypercar.length, 19);
     assert.equal(championship.standings.gt3.length, 18);
-    assert.equal(Object.keys(championship.entrants).length, 37);
+    assert.equal(Object.keys(championship.entrants).length, 38);
     for (const line of source) {
         const [category, pos, number, team, points, ...finishes] = line.split('\t');
         const actual = championship.standings[category][Number(pos) - 1];
@@ -59,7 +59,12 @@ test('Calendar and winners preserve the supplied custom season and partial Le Ma
     assert.equal(championship.calendar[3].winners.lmp2, undefined);
     assert.equal(championship.standings.gt3[0].finishes['le-mans'], null);
     assert.equal(championship.standings.gt3[0].points, 54);
-    assert(championship.calendar.every(race => race.results.length === 0));
+    assert.equal(championship.calendar[0].results.length, 37);
+    assert.equal(championship.calendar[1].results.length, 37);
+    assert.equal(championship.calendar[2].results.length, 37);
+    assert.equal(championship.calendar[3].results.length, 9);
+    assert.equal(championship.calendar[3].inProgress, true);
+    assert(championship.calendar.slice(4).every(race => race.results.length === 0));
     assert.deepEqual(championship.calendar[0].winners.gt3.drivers, ['jordan', 'rovera', 'mann']);
     assert.deepEqual(championship.calendar[2].winners.hypercar.drivers, ['pierGuidi', 'giovinazzi', 'calado']);
     assert.deepEqual(championship.calendar[2].winners.gt3.drivers, ['bovy', 'gatting', 'pin']);
@@ -71,6 +76,7 @@ test('Driver, entrant and circuit flags resolve locally; all supplied references
     const drivers = plain(site.evaluate('WEC_DRIVERS'));
     const flags = plain(site.evaluate('COUNTRY_FLAGS'));
     for (const entity of [...Object.values(championship.entrants), ...Object.values(drivers), ...championship.calendar]) {
+        if (entity.country == null) continue; // The new GR Racing flag was not supplied.
         assert(flags[entity.country], entity.country);
         assert(fs.existsSync(path.join(root, flags[entity.country])), entity.country);
     }

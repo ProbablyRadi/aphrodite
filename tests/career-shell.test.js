@@ -79,7 +79,7 @@ test('All declared assets exist and the old records and portraits are removed', 
         const file = match[1].split('?')[0];
         assert(fs.existsSync(path.join(root, file)), file);
     }
-    assert.deepEqual(scriptFiles(), ['data/base.js', 'data/2024.js', 'js/shared.js', 'js/profile.js', 'js/season.js', 'js/tables.js', 'js/home.js', 'app.js']);
+    assert.deepEqual(scriptFiles(), ['data/base.js', 'data/2024.js', 'js/shared.js', 'js/profile.js', 'js/season-overview.js', 'js/season.js', 'js/tables.js', 'js/home.js', 'app.js']);
     for (const file of ['data/rens.js', 'data/jordan.js', 'data/vasi.js', 'data/gallery.js', 'assets/portraits', 'assets/character-select', 'assets/gallery', 'assets/stadium-glass-bg.jpg', 'js/matches.js']) {
         assert(!fs.existsSync(path.join(root, file)), file);
     }

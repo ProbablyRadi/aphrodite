@@ -6,7 +6,7 @@ There is no build step, database or package installation.
 
 The original Wiki, Dracula and Glass appearances, character selector,
 responsive career navigation and table controls are preserved. Glass uses a
-neutral gradient background. Character cards have no portraits.
+generated, softly blurred Le Mans pit-straight background. Character cards have no portraits.
 
 ## Pages
 
@@ -54,8 +54,7 @@ Each race in WEC_SEASONS[characterId][year].calendar holds:
 A classification row contains entrant (ID), position (overall), classPosition,
 laps and gap. Optional status records DNF/DNS/etc.; optional drivers holds driver
 IDs. No overall place, elapsed time or laps are inferred from class standings.
-Individual classifications have not yet been imported; each race currently has
-an empty results array and a visible table awaiting its full result sheet.
+Jordan Vale 2024 rounds 1 to 3, Qatar 4 Hours, Monza 4 Hours and Spa 4 Hours, each contain all 37 supplied result rows. Other races still have empty result arrays awaiting their full result sheets.
 
 Explicit winner-overview records can arrive before full classifications.
 When no explicit winner is recorded, the overview can use a reported first
@@ -104,3 +103,41 @@ and season route, section links, multiclass rendering, theme controls and
 removed legacy assets. These checks verify data and generated markup; they
 do not perform browser layout rendering.
 
+
+
+
+
+Le Mans 8 Hours is in progress, with nine supplied retirements and blank gaps.
+Unfilled template positions are not recorded as classified finishers.
+GR Racing #86 is a Le Mans entrant, with nationality still unreported.
+The previously supplied GT3 winner is retained as provisional while the race
+is in progress. The supplied championship standings are unchanged.
+
+
+## Season overview analytics
+
+Every season page has a Season overview section beneath all individual races.
+Jordan Vale 2024 has separate interactive Hypercar and LMGT3 cumulative points
+charts and class KPI cards for points leader, lead over second, leader wins and
+podiums, and retirements. Charts show the top five entrants initially; controls
+allow any combination, all entrants, or a reset to the leaders.
+
+js/season-overview.js derives points from completed class classifications using
+25-18-15-12-10-8-6-4-2-1. Le Mans has pointsMultiplier: 2. No fastest-lap,
+qualifying or bonus points are added. Set completed: true only when the race
+classification is final; inProgress always excludes a race from analytics.
+An unreported result leaves cumulative points unknown rather than assigning
+zero. The supplied standings remain their own authoritative data store.
+
+Team-mates share a chart colour and use different line dash patterns. Series
+are per numbered entrant, not combined team scores. Native point tooltips and
+an expandable cumulative points table provide exact values. No external chart
+library or network request is required. Other characters' charts remain empty
+until their own completed race data is supplied.
+
+Standings display order is calculated automatically from supplied points,
+then countback across completed races: most firsts, seconds, thirds, and so on,
+including non-scoring finishes. DNFs, unknown places and live races are excluded
+from countback. Exact ties retain the supplied order. The raw imported rows
+stay unchanged, while displayed positions and chart leader ordering use the
+same comparator.

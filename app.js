@@ -6,7 +6,7 @@ function route() {
     let [id, year, section, ...extra] = path.split('/');
     const character = Object.hasOwn(DATA, id) ? DATA[id] : null;
     const targets = { results: 'race-results', standings: 'championship-standings',
-        hypercar: 'hypercar-standings', gt3: 'gt3-standings', races: 'individual-races' };
+        hypercar: 'hypercar-standings', gt3: 'gt3-standings', races: 'individual-races', overview: 'season-overview' };
     const raceSection = character && year && Object.hasOwn(WEC_SEASONS[id], year)
         && WEC_SEASONS[id][year].calendar.some(race => section === `race-${race.id}`);
     const valid = !extra.length && (!year || (character && Object.hasOwn(character.seasons, year)))
