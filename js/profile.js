@@ -4,7 +4,7 @@ function careerNavigator(id, activeSeason = '') {
         <div class="career-nav-player"><div><b>${esc(DATA[id].name)}</b><small>Career navigator</small></div></div>
         <a class="career-nav-main ${activeSeason ? '' : 'active'}" href="#${id}" ${activeSeason ? '' : 'aria-current="page"'}>Overview</a>
         <div class="career-nav-club"><div class="career-nav-clubname">Race seasons</div>
-        ${SEASON_YEARS.map(year => `<a href="#${id}/${year}" class="${year === activeSeason ? 'active' : ''}" ${year === activeSeason ? 'aria-current="page"' : ''}>${year}</a>`).join('')}</div>
+        ${Object.keys(DATA[id].seasons).map(year => `<a href="#${id}/${year}" class="${year === activeSeason ? 'active' : ''}" ${year === activeSeason ? 'aria-current="page"' : ''}>${year}</a>`).join('')}</div>
         <a class="career-nav-main" href="#home">← All characters</a>
     </div>`;
 }
@@ -16,13 +16,13 @@ function player(id) {
         <p class="season-subtitle">Le Mans Ultimate · World Endurance Championship</p>
         <p>Explore this character’s career and race seasons.</p>
         <h2>Career overview</h2>
-        <p class="muted">No career data has been added yet. A dash means the result has not been recorded.</p>
+        <p class="muted">A dash means the detail or result has not been recorded.</p>
         <table class="wikitable career-overview-table">
             <caption>Career overview by race season</caption>
-            <thead><tr>${['Year', 'Team', 'Car', 'Class', 'Position', 'Race starts', 'Race wins', 'Podiums', 'Pole positions', 'Points'].map(label => `<th scope="col">${label}</th>`).join('')}</tr></thead>
-            <tbody>${SEASON_YEARS.map(year => {
+            <thead><tr>${['Year', 'No.', 'Team', 'Car', 'Class', 'Position', 'Race starts', 'Race wins', 'Podiums', 'Pole positions', 'Points'].map(label => `<th scope="col">${label}</th>`).join('')}</tr></thead>
+            <tbody>${Object.keys(character.seasons).map(year => {
                 const record = character.seasons[year];
-                return `<tr><th scope="row"><a href="#${id}/${year}">${year}</a></th>${['team', 'car', 'category', 'position', 'starts', 'wins', 'podiums', 'poles', 'points'].map(key => `<td>${displayValue(record[key])}</td>`).join('')}</tr>`;
+                return `<tr><th scope="row"><a href="#${id}/${year}">${year}</a></th><td>${record.number == null ? '—' : `#${esc(record.number)}`}</td>${['team', 'car', 'category', 'position', 'starts', 'wins', 'podiums', 'poles', 'points'].map(key => `<td>${displayValue(record[key])}</td>`).join('')}</tr>`;
             }).join('')}</tbody>
         </table>`;
 }

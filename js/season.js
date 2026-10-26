@@ -14,6 +14,7 @@ function season(id, year) {
         <div class="season-eyebrow">World Endurance Championship</div>
         <h1>${year} race season</h1>
         <p class="season-subtitle">${esc(character.name)} · Le Mans Ultimate</p>
+        ${['team', 'car', 'category', 'number'].some(key => record[key] != null) ? `<dl class="wec-personal-equipment">${[['Team', 'team'], ['Car', 'car'], ['Class', 'category'], ['Number', 'number']].filter(([, key]) => record[key] != null).map(([label, key]) => `<div><dt>${label}</dt><dd>${key === 'number' ? '#' : ''}${esc(record[key])}</dd></div>`).join('')}</dl>` : ''}
         <div class="season-kpis">${[['Position', 'position'], ['Race starts', 'starts'], ['Race wins', 'wins'], ['Podiums', 'podiums'], ['Points', 'points']].map(([label, key]) => `<div><span>${label}</span><b>${displayValue(record[key])}</b></div>`).join('')}</div>
     </section>
     <nav class="season-jump" aria-label="Season sections"><b>On this page</b><div>${sectionLinks.map(([key, label]) => `<a href="#${id}/${year}/${key}">${label}</a>`).join('')}</div></nav>

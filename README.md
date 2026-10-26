@@ -1,6 +1,6 @@
 # Le Mans Ultimate Career Wiki
 
-A static WEC career archive for Rens Adisea, Jordan Vale and Vasiliki.
+A static WEC career archive for Rens Adisea, Jordan Vale and Vasiliki Dimitriou.
 Open index.html directly in a browser or serve this folder as a static website.
 There is no build step, database or package installation.
 

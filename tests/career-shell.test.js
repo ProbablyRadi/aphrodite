@@ -4,12 +4,12 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { createSite, plain, root, read, scriptFiles } = require('./helpers/site');
 
-test('Character selection, all overview routes and all twelve season routes work', () => {
+test('Character selection, all overview routes and each character’s season routes work', () => {
     const site = createSite();
     site.startApp();
     assert.equal((site.app.innerHTML.match(/class="home-player-tile"/g) || []).length, 3);
     assert.doesNotMatch(site.app.innerHTML, /<img|url\(/);
-    const names = { rens: 'Rens Adisea', jordan: 'Jordan Vale', vasi: 'Vasiliki' };
+    const names = { rens: 'Rens Adisea', jordan: 'Jordan Vale', vasi: 'Vasiliki Dimitriou' };
     for (const [id, name] of Object.entries(names)) {
         site.characterSelect.value = id;
         site.characterSelect.emit('change');
@@ -20,6 +20,11 @@ test('Character selection, all overview routes and all twelve season routes work
         assert.equal(site.characterSelect.value, id);
         assert(!site.activeClasses.has('is-home'));
         for (const year of ['2023', '2024', '2025', '2026']) {
+            if (id === 'vasi' && year === '2023') {
+                assert(!site.app.innerHTML.includes('href="#vasi/2023"'));
+                assert(!site.nav.innerHTML.includes('href="#vasi/2023"'));
+                continue;
+            }
             assert(site.nav.innerHTML.includes(`href="#${id}/${year}"`));
             site.navigate(`#${id}/${year}`);
             assert.match(site.app.innerHTML, new RegExp(`${year} race season`));
@@ -31,15 +36,13 @@ test('Character selection, all overview routes and all twelve season routes work
     }
 });
 
-test('Empty careers contain no invented results; unknown values differ from zero', () => {
+test('Personal career totals remain unreported; equipment does not invent results', () => {
     const site = createSite();
     const records = plain(site.evaluate('DATA'));
     for (const character of Object.values(records)) {
-        assert.deepEqual(Object.keys(character.seasons), ['2023', '2024', '2025', '2026']);
+        assert.deepEqual(Object.keys(character.seasons), character.name === 'Vasiliki Dimitriou' ? ['2024', '2025', '2026'] : ['2023', '2024', '2025', '2026']);
         for (const record of Object.values(character.seasons)) {
-            for (const [key, value] of Object.entries(record)) {
-                assert.equal(value, null);
-            }
+            for (const key of ['position', 'starts', 'wins', 'podiums', 'poles', 'points']) assert.equal(record[key], null);
         }
     }
     assert.equal(site.evaluate('displayValue(null)'), '—');
@@ -49,7 +52,7 @@ test('Empty careers contain no invented results; unknown values differ from zero
 
 test('Invalid and retired URLs fall back to home; season section URLs remain usable', () => {
     const site = createSite();
-    for (const hash of ['#unknown', '#rens/2027', '#rens/stats', '#rens/analysis', '#gallery', '#rens/2023/nope', '#rens/2023/results/extra', '#%', '#__proto__', '#rens/__proto__']) {
+    for (const hash of ['#unknown', '#vasi/2023', '#vasi/2023/results', '#rens/2027', '#rens/stats', '#rens/analysis', '#gallery', '#rens/2023/nope', '#rens/2023/results/extra', '#%', '#__proto__', '#rens/__proto__']) {
         site.navigate(hash);
         assert(site.activeClasses.has('is-home'), hash);
         assert.equal(site.characterSelect.value, '');
