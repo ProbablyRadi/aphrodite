@@ -6,10 +6,11 @@ function route() {
     let [id, year, section, ...extra] = path.split('/');
     const character = Object.hasOwn(DATA, id) ? DATA[id] : null;
     const targets = { results: 'race-results', standings: 'championship-standings',
-        hypercar: 'hypercar-standings', gt3: 'gt3-standings', races: 'individual-races', overview: 'season-overview' };
+        hypercar: 'hypercar-standings', gt3: 'gt3-standings', gte: 'gte-standings', lmp2: 'lmp2-standings',
+        gtepro: 'gtepro-standings', gteam: 'gteam-standings', races: 'individual-races', overview: 'season-overview' };
     const raceSection = character && year && Object.hasOwn(WEC_SEASONS[id], year)
         && WEC_SEASONS[id][year].calendar.some(race => section === `race-${race.id}`);
-    const valid = !extra.length && (!year || (character && Object.hasOwn(character.seasons, year)))
+    const valid = !extra.length && (!year || (character && Object.hasOwn(WEC_SEASONS[id], year)))
         && (!section || (year && (Object.hasOwn(targets, section) || raceSection)))
         && !path.endsWith('/');
     if (!valid || (!character && id !== 'home') || (id === 'home' && year))
@@ -17,7 +18,7 @@ function route() {
     document.body.classList.toggle('is-home', id === 'home');
     characterSelect.value = id === 'home' ? '' : id;
     if (id === 'home') home();
-    else if (year) season(id, year);
+    else if (year) season(id, year, section);
     else player(id);
     document.title = id === 'home' ? 'Le Mans Ultimate Career Wiki'
         : DATA[id].name + (year ? ' · ' + year : ' · Overview') + ' | Le Mans Ultimate';

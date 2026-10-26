@@ -6,9 +6,10 @@ const displayValue = value => value == null || value === '' ? '—' : esc(value)
 
 // File keys are country names, so flags do not depend on platform emoji fonts.
 const COUNTRY_FLAGS = Object.fromEntries([
-    'Argentina', 'Belgium', 'Denmark', 'France', 'Germany', 'Italy', 'Japan',
-    'Netherlands', 'Qatar', 'Spain', 'United Kingdom', 'United States'
+    'Argentina', 'Austria', 'Belgium', 'Canada', 'Denmark', 'France', 'Germany', 'Italy', 'Japan',
+    'Netherlands', 'Oman', 'Poland', 'Portugal', 'Qatar', 'Spain', 'Switzerland', 'United Kingdom', 'United States'
 ].map(country => [country, `assets/flags/${country.replace(/ /g, '-')}.png`]));
+if (typeof HISTORICAL_FLAG_ASSETS !== 'undefined') Object.assign(COUNTRY_FLAGS, HISTORICAL_FLAG_ASSETS);
 
 function countryFlag(country) {
     if (!country) return '';
@@ -23,6 +24,10 @@ const MANUFACTURER_BADGES = Object.fromEntries([
     ['Aston Martin', 'aston-martin'], ['Corvette', 'chevrolet-corvette'],
     ['Lexus', 'lexus'], ['McLaren', 'mclaren'], ['Ford', 'ford']
 ].map(([make, file]) => [make, `assets/manufacturers/${file}.png`]));
+Object.assign(MANUFACTURER_BADGES, {
+    Oreca: 'assets/manufacturers/oreca-badge.svg', Ligier: 'assets/manufacturers/ligier.png',
+    Glickenhaus: 'assets/manufacturers/glickenhaus.png', Vanwall: 'assets/manufacturers/vanwall.jpg'
+});
 
 function manufacturerBadge(make) {
     if (!make || !Object.hasOwn(MANUFACTURER_BADGES, make)) return '';

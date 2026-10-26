@@ -4,12 +4,12 @@ const { createSite, plain } = require('./helpers/site');
 
 test('Zero-point Hypercars rank Alpine #35, Porsche #6, Peugeot #93 by completed results', () => {
     const site = createSite();
-    const original = plain(site.evaluate('WEC_SEASONS.jordan["2024"].standings.hypercar'));
-    const ranked = plain(site.evaluate('rankedStandings(WEC_SEASONS.jordan["2024"], "hypercar")'));
+    const original = plain(site.evaluate('WEC_SEASONS.rens["2024"].standings.hypercar'));
+    const ranked = plain(site.evaluate('rankedStandings(WEC_SEASONS.rens["2024"], "hypercar")'));
     assert.deepEqual(ranked.slice(-3).map(row => [row.position, row.entrant]), [[17, 'hy-35'], [18, 'hy-6'], [19, 'hy-93']]);
-    assert.deepEqual(plain(site.evaluate('WEC_SEASONS.jordan["2024"].standings.hypercar')), original);
-    site.navigate('#jordan/2024');
-    const table = site.evaluate('standingsTable(WEC_SEASONS.jordan["2024"], "hypercar", "jordan", "2024")');
+    assert.deepEqual(plain(site.evaluate('WEC_SEASONS.rens["2024"].standings.hypercar')), original);
+    site.navigate('#rens/2024');
+    const table = site.evaluate('standingsTable(WEC_SEASONS.rens["2024"], "hypercar", "rens", "2024")');
     assert(table.indexOf('>#35</td>') < table.indexOf('>#6</td>'));
     assert(table.indexOf('>#6</td>') < table.indexOf('>#93</td>'));
 });
@@ -28,14 +28,14 @@ test('Points and full place countback resolve ties including second-best and non
 
 test('Live results cannot change countback, and analytics use the same tie ordering', () => {
     const site = createSite();
-    site.evaluate(`WEC_SEASONS.jordan['2024'].standings.hypercar.find(row => row.entrant === 'hy-93').finishes['le-mans'] = 1;`);
-    const ranked = plain(site.evaluate('rankedStandings(WEC_SEASONS.jordan["2024"], "hypercar")'));
+    site.evaluate(`WEC_SEASONS.rens['2024'].standings.hypercar.find(row => row.entrant === 'hy-93').finishes['le-mans'] = 1;`);
+    const ranked = plain(site.evaluate('rankedStandings(WEC_SEASONS.rens["2024"], "hypercar")'));
     assert.equal(ranked.at(-1).entrant, 'hy-93');
     for (const category of ['hypercar', 'gt3']) {
-        const standingsOrder = plain(site.evaluate(`rankedStandings(WEC_SEASONS.jordan['2024'], '${category}').map(row => row.entrant)`));
-        const analyticsOrder = plain(site.evaluate(`pointsProgression(WEC_SEASONS.jordan['2024'], '${category}').series.map(row => row.id)`));
+        const standingsOrder = plain(site.evaluate(`rankedStandings(WEC_SEASONS.rens['2024'], '${category}').map(row => row.entrant)`));
+        const analyticsOrder = plain(site.evaluate(`pointsProgression(WEC_SEASONS.rens['2024'], '${category}').series.map(row => row.id)`));
         assert.deepEqual(analyticsOrder, standingsOrder);
     }
-    const gt3 = plain(site.evaluate('rankedStandings(WEC_SEASONS.jordan["2024"], "gt3")'));
+    const gt3 = plain(site.evaluate('rankedStandings(WEC_SEASONS.rens["2024"], "gt3")'));
     assert(gt3.findIndex(row => row.entrant === 'gt-85') < gt3.findIndex(row => row.entrant === 'gt-27'));
 });

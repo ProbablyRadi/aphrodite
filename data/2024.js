@@ -1,11 +1,11 @@
-// Jordan Vale - 2024 career championship: supplied tables are authoritative, including their
+// Rens Adisea - 2024 career championship: supplied tables are authoritative, including their
 // partial Le Mans results. Points are not recalculated from unfinished rounds.
 // Country flags and car makes follow the supplied reference images.
 Object.assign(WEC_DRIVERS, {
     lopez: { name: 'José María López', country: 'Argentina' },
     deVries: { name: 'Nyck de Vries', country: 'Netherlands' },
     conway: { name: 'Mike Conway', country: 'United Kingdom' },
-    jordan: { name: 'Jordan Vale', country: 'United Kingdom' },
+    rens: { name: 'Rens Adisea', country: 'Netherlands' },
     rovera: { name: 'Alessio Rovera', country: 'Italy' },
     mann: { name: 'Simon Mann', country: 'United States' },
     pierGuidi: { name: 'Alessandro Pier Guidi', country: 'Italy' },
@@ -16,16 +16,16 @@ Object.assign(WEC_DRIVERS, {
     pin: { name: 'Doriane Pin', country: 'France' }
 });
 
-WEC_SEASONS.jordan['2024'] = {
+WEC_SEASONS.rens['2024'] = {
     calendar: [
         { id: 'qatar', round: 1, code: 'QAT', circuit: 'Losail', country: 'Qatar',
-            winners: { hypercar: { entrant: 'hy-7', drivers: ['lopez', 'deVries', 'conway'] }, gt3: { entrant: 'gt-55', drivers: ['jordan', 'rovera', 'mann'] } }, results: [] },
+            winners: { hypercar: { entrant: 'hy-7', drivers: ['lopez', 'deVries', 'conway'] }, gt3: { entrant: 'gt-55', drivers: ['rens', 'rovera', 'mann'] } }, results: [] },
         { id: 'monza', round: 2, code: 'ITA', circuit: 'Monza', country: 'Italy',
-            winners: { hypercar: { entrant: 'hy-7', drivers: ['lopez', 'deVries', 'conway'] }, gt3: { entrant: 'gt-55', drivers: ['jordan', 'rovera', 'mann'] } }, results: [] },
+            winners: { hypercar: { entrant: 'hy-7', drivers: ['lopez', 'deVries', 'conway'] }, gt3: { entrant: 'gt-55', drivers: ['rens', 'rovera', 'mann'] } }, results: [] },
         { id: 'spa', round: 3, code: 'BEL', circuit: 'Spa', country: 'Belgium',
             winners: { hypercar: { entrant: 'hy-51', drivers: ['pierGuidi', 'giovinazzi', 'calado'] }, gt3: { entrant: 'gt-85', drivers: ['bovy', 'gatting', 'pin'] } }, results: [] },
         { id: 'le-mans', round: 4, code: 'FRA', circuit: 'Le Mans', country: 'France',
-            winners: { gt3: { entrant: 'gt-55', drivers: ['jordan', 'rovera', 'mann'] } }, results: [] },
+            winners: { gt3: { entrant: 'gt-55', drivers: ['rens', 'rovera', 'mann'] } }, results: [] },
         { id: 'long-beach', round: 5, code: 'LGB', circuit: 'Long Beach', country: 'United States', winners: {}, results: [] },
         { id: 'cota', round: 6, code: 'COT', circuit: 'COTA', country: 'United States', winners: {}, results: [] },
         { id: 'barcelona', round: 7, code: 'ESP', circuit: 'Barcelona', country: 'Spain', winners: {}, results: [] },
@@ -76,7 +76,7 @@ WEC_SEASONS.jordan['2024'] = {
     ['gt-77', '77', 'Proton Racing', 'Germany', 'Ford', 'gt3'],
     ['gt-88', '88', 'Proton Racing', 'Germany', 'Ford', 'gt3']
 ].forEach(([id, number, team, country, car, category]) => {
-    WEC_SEASONS.jordan['2024'].entrants[id] = { number, team, country, car, category };
+    WEC_SEASONS.rens['2024'].entrants[id] = { number, team, country, car, category };
 });
 
 // Rows: entrant ID, points, then class finishes in calendar order.
@@ -107,15 +107,15 @@ const STANDINGS_2024 = {
     ]
 };
 Object.entries(STANDINGS_2024).forEach(([category, rows]) => {
-    WEC_SEASONS.jordan['2024'].standings[category] = rows.map(([entrant, points, ...finishes], index) => ({
+    WEC_SEASONS.rens['2024'].standings[category] = rows.map(([entrant, points, ...finishes], index) => ({
         position: index + 1, entrant, points,
-        finishes: Object.fromEntries(WEC_SEASONS.jordan['2024'].calendar.map((race, i) => [race.id, finishes[i] ?? null]))
+        finishes: Object.fromEntries(WEC_SEASONS.rens['2024'].calendar.map((race, i) => [race.id, finishes[i] ?? null]))
     }));
 });
 
-// Jordan Vale — round 1. Preserve the supplied elapsed-time strings verbatim.
-WEC_SEASONS.jordan['2024'].calendar[0].name = 'Qatar 4 Hours';
-WEC_SEASONS.jordan['2024'].calendar[0].results = [
+// Rens Adisea — round 1. Preserve the supplied elapsed-time strings verbatim.
+WEC_SEASONS.rens['2024'].calendar[0].name = 'Qatar 4 Hours';
+WEC_SEASONS.rens['2024'].calendar[0].results = [
     [1, 1, 'hy-7', 127, '4:00:33.646'],
     [2, 2, 'hy-20', 127, '+38.2'],
     [3, 3, 'hy-94', 127, '+1:08.8'],
@@ -159,9 +159,9 @@ WEC_SEASONS.jordan['2024'].calendar[0].results = [
     ...(typeof overall === 'string' ? { status: overall } : {})
 }));
 
-// Jordan Vale — round 2. DNF entries retain their supplied order and blank P.
-WEC_SEASONS.jordan['2024'].calendar[1].name = 'Monza 4 Hours';
-WEC_SEASONS.jordan['2024'].calendar[1].results = [
+// Rens Adisea — round 2. DNF entries retain their supplied order and blank P.
+WEC_SEASONS.rens['2024'].calendar[1].name = 'Monza 4 Hours';
+WEC_SEASONS.rens['2024'].calendar[1].results = [
     [1, 1, 'hy-7', 141, '4:00:14.788'],
     [2, 2, 'hy-50', 141, '+44.0'],
     [3, 3, 'hy-83', 141, '+44.5'],
@@ -205,9 +205,9 @@ WEC_SEASONS.jordan['2024'].calendar[1].results = [
     ...(typeof overall === 'string' ? { status: overall } : {})
 }));
 
-// Jordan Vale — round 3. Class gaps and retirement order follow the source.
-WEC_SEASONS.jordan['2024'].calendar[2].name = 'Spa 4 Hours';
-WEC_SEASONS.jordan['2024'].calendar[2].results = [
+// Rens Adisea — round 3. Class gaps and retirement order follow the source.
+WEC_SEASONS.rens['2024'].calendar[2].name = 'Spa 4 Hours';
+WEC_SEASONS.rens['2024'].calendar[2].results = [
     [1, 1, 'hy-51', 97, '4:00:07.440'],
     [2, 2, 'hy-50', 97, '+9.9'],
     [3, 3, 'hy-5', 97, '+13.9'],
@@ -252,11 +252,11 @@ WEC_SEASONS.jordan['2024'].calendar[2].results = [
 }));
 
 
-// Jordan Vale - round 4 is still running. Blank template places are not results.
-WEC_SEASONS.jordan['2024'].entrants['gt-86'] = {
+// Rens Adisea - round 4 is still running. Blank template places are not results.
+WEC_SEASONS.rens['2024'].entrants['gt-86'] = {
     number: '86', team: 'GR Racing', country: null, car: 'Ferrari', category: 'gt3'
 };
-Object.assign(WEC_SEASONS.jordan['2024'].calendar[3], {
+Object.assign(WEC_SEASONS.rens['2024'].calendar[3], {
     name: 'Le Mans 8 Hours',
     inProgress: true,
     results: [
@@ -275,5 +275,5 @@ Object.assign(WEC_SEASONS.jordan['2024'].calendar[3], {
 });
 
 // Completed classifications drive analytics; the live Le Mans race stays excluded.
-WEC_SEASONS.jordan['2024'].calendar.slice(0, 3).forEach(race => { race.completed = true; });
-WEC_SEASONS.jordan['2024'].calendar[3].pointsMultiplier = 2;
+WEC_SEASONS.rens['2024'].calendar.slice(0, 3).forEach(race => { race.completed = true; });
+WEC_SEASONS.rens['2024'].calendar[3].pointsMultiplier = 2;

@@ -1124,3 +1124,29 @@ body .season-card .wec-points-data { width: auto; min-width: 480px; font-size: 1
 .wec-personal-equipment > div { min-width: 0; }
 .wec-personal-equipment dt { font-size: .85em; opacity: .75; }
 .wec-personal-equipment dd { margin: 3px 0 0; font-weight: 600; overflow-wrap: anywhere; }
+
+/* The selected season reveals its own race anchors beneath the year link. */
+.career-nav-races { list-style: none; margin: 4px 0 10px 10px; padding: 2px 0 2px 8px; border-left: 1px solid var(--border); }
+.career-nav-races li { margin: 0; padding: 0; }
+.career-nav-club .career-nav-races a { font-size: 14px; padding: 6px 8px; line-height: 1.35; }
+.career-nav-races a span { overflow-wrap: anywhere; }
+
+/* Historical GTE classes retain distinct class badges and row tints. */
+body .wec-classification td.wec-class-gtepro { background: #c65a21 !important; color: #fff; }
+body .wec-classification td.wec-class-gteam { background: #408b42 !important; color: #fff; }
+body .wec-classification .wec-result-gtepro > td:not(.finish-gold, .finish-silver, .finish-bronze, .wec-class-cell, .wec-number) { background: var(--race-hypercar) !important; }
+body .wec-classification .wec-result-gteam > td:not(.finish-gold, .finish-silver, .finish-bronze, .wec-class-cell, .wec-number) { background: var(--race-gt3) !important; }
+.wec-classification :is(.wec-class-gtepro, .wec-class-gteam) { font-size: 11px; }
+.wec-history-note { max-width: 1000px; padding-left: 12px; border-left: 3px solid var(--blue); }
+.wec-source-note { font-size: 13px; margin-bottom: 0; }
+
+/* Crew details stay available without increasing classification row heights. */
+.wec-classification .wec-class-cell abbr { white-space: nowrap; }
+.wec-race-crews { margin-top: 14px; }
+.wec-race-crews summary { cursor: pointer; font-weight: 600; }
+.wec-race-crew-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; list-style: none; margin: 16px 0 0; padding: 0; }
+.wec-race-crew-grid > li { padding: 12px; border: 1px solid var(--border); border-radius: 4px; }
+.wec-race-crew-grid .wec-entrant { align-items: flex-start; }
+
+body .wec-classification td.wec-class-gte { background: #408b42 !important; color: #fff; }
+body .wec-classification .wec-result-gte > td:not(.finish-gold, .finish-silver, .finish-bronze, .wec-class-cell, .wec-number) { background: var(--race-gt3) !important; }

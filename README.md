@@ -141,3 +141,11 @@ including non-scoring finishes. DNFs, unknown places and live races are excluded
 from countback. Exact ties retain the supplied order. The raw imported rows
 stay unchanged, while displayed positions and chart leader ordering use the
 same comparator.
+
+## Historical 2022 backstory
+
+Rens now has a 2022 Team Project 1 #56 Porsche 911 RSR GTE entry and a full
+historical results page, using separate Hypercar, LMP2, GTE Pro and GTE Am
+classes and historical scoring. The fictional fixed #56 crew is Rens Adisea,
+Ben Barnicoat and Brendan Iribe. His 2023 team is Project 1 - AO Racing.
+See data/sources/2022.md for sources, scoring and adaptation details.

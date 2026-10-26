@@ -39,6 +39,7 @@ function exportDatabase(output) {
                 const seasonId = `${characterId}:${year}`;
                 insert('seasons', [seasonId, characterId, Number(year), ...['team', 'car', 'category', 'position', 'starts', 'wins', 'podiums', 'poles', 'points'].map(key => personal[key])]);
                 const championship = data.championships[characterId][year];
+                if (!championship) continue; // Overview-only seasons have no race page.
                 for (const [entrantId, entrant] of Object.entries(championship.entrants)) {
                     if (!teams.has(entrant.team)) { insert('teams', [entrant.team]); teams.add(entrant.team); }
                     if (entrant.car && !manufacturers.has(entrant.car)) {

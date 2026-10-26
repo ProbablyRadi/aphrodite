@@ -1,19 +1,21 @@
 // Reusable table renderers; each character has independent championship records.
-function season(id, year) {
+function season(id, year, activeSection = '') {
     const character = DATA[id];
     const record = character.seasons[year];
     const championship = WEC_SEASONS[id][year];
+    const categories = championship.categories || ['hypercar', 'gt3'];
     app.className = 'season-page';
-    nav.innerHTML = careerNavigator(id, year);
+    nav.innerHTML = careerNavigator(id, year, activeSection);
     const sectionLinks = [
-        ['results', 'Race results overview'], ['hypercar', 'Hypercar standings'],
-        ['gt3', 'GT3 standings'], ['races', 'Individual race results'], ['overview', 'Season overview']
+        ['results', 'Race results overview'], ...categories.map(category => [category, `${category === 'gt3' ? 'GT3' : WEC_CLASSES[category]} standings`]),
+        ['races', 'Individual race results'], ['overview', 'Season overview']
     ];
     app.innerHTML = `<section class="season-hero">
         <div class="season-breadcrumb"><a href="#home">Characters</a> / <a href="#${id}">${esc(character.name)}</a> / ${year}</div>
         <div class="season-eyebrow">World Endurance Championship</div>
         <h1>${year} race season</h1>
         <p class="season-subtitle">${esc(character.name)} · Le Mans Ultimate</p>
+        ${championship.historical ? `<p class="wec-history-note"><b>Historical backstory</b> · ${esc(championship.adaptationNote)}</p>` : ''}
         ${['team', 'car', 'category', 'number'].some(key => record[key] != null) ? `<dl class="wec-personal-equipment">${[['Team', 'team'], ['Car', 'car'], ['Class', 'category'], ['Number', 'number']].filter(([, key]) => record[key] != null).map(([label, key]) => `<div><dt>${label}</dt><dd>${key === 'number' ? '#' : ''}${esc(record[key])}</dd></div>`).join('')}</dl>` : ''}
         <div class="season-kpis">${[['Position', 'position'], ['Race starts', 'starts'], ['Race wins', 'wins'], ['Podiums', 'podiums'], ['Points', 'points']].map(([label, key]) => `<div><span>${label}</span><b>${displayValue(record[key])}</b></div>`).join('')}</div>
     </section>
@@ -22,16 +24,16 @@ function season(id, year) {
     <div class="wec-summary-grid">
     <section id="race-results" class="wec-summary-results">
         <h2>Race results overview</h2>
-        ${!championship.calendar.length ? `<p class="muted">No race data has been added for ${year} yet.</p>` : ''}
+        ${!championship.calendar.some(race => race.results.length || Object.keys(race.winners || {}).length) ? `<p class="muted">No race data has been added for ${year} yet.</p>` : ''}
         ${raceOverviewTable(championship, id, year)}
         ${championship.lmp2Calendar.length ? lmp2OverviewTable(championship, id, year) : ''}
     </section>
     <div id="championship-standings" class="wec-summary-standings">
-        <section id="hypercar-standings"><h2>Hypercar Entrant Standings</h2>${standingsTable(championship, 'hypercar', id, year)}</section>
-        <section id="gt3-standings"><h2>GT3 Entrant Standings</h2>${standingsTable(championship, 'gt3', id, year)}</section>
+        ${categories.map(category => `<section id="${category}-standings"><h2>${esc(standingTitle(category))}</h2>${standingsTable(championship, category, id, year)}</section>`).join('')}
     </div>
     </div>
     <p class="wec-data-note">Championship standings use supplied points, then countback of completed-race finishes: most wins, second places, third places and so on. Identical records retain the supplied order. Blank results are unreported; live results do not break ties.</p>
+    ${championship.historical ? '<p class="wec-data-note">Hypercar and GTE Pro entrant points follow the published driver-championship records for each car; LMP2 and GTE Am use the published team standings. The historical manufacturer championships are separate competitions.</p>' : ''}
     <p class="wec-legend"><span class="finish-gold">1st</span><span class="finish-silver">2nd</span><span class="finish-bronze">3rd</span><span class="finish-points">4–10</span><span class="finish-classified">11+</span><span class="finish-dnf">DNF</span></p>
     </section>
     <section id="individual-races" class="wec-races">
@@ -75,6 +77,9 @@ function raceWinner(championship, race, category) {
 }
 
 function raceOverviewTable(championship, id, year) {
+    if (championship.overviewGroups) return championship.overviewGroups.map(group =>
+        spreadsheetOverview(championship, championship.calendar.map(race => ({ race, round: race.round })), group,
+            `Race results — ${group.map(category => WEC_CLASSES[category]).join(' & ')}`, id, year)).join('');
     return spreadsheetOverview(championship, championship.calendar.map(race => ({ race, round: race.round })),
         ['hypercar', 'gt3'], 'Race results', id, year);
 }
@@ -125,10 +130,14 @@ function finishClass(value) {
         || (value <= 10 ? 'finish-points' : 'finish-classified');
 }
 
+function standingTitle(category) {
+    return `${category === 'gt3' ? 'GT3' : WEC_CLASSES[category]} Entrant Standings`;
+}
+
 function standingsTable(championship, category, id, year) {
-    const title = category === 'gt3' ? 'GT3 Entrant Standings' : 'Hypercar Entrant Standings';
-    const headers = ['Pos', 'Flag', 'No.', 'Entrant', 'Points',
-        ...championship.calendar.map(race => `<a href="#${id}/${year}/race-${race.id}" title="${esc(race.circuit)}">${esc(race.code)}</a>`)];
+    const title = standingTitle(category);
+    const headers = ['Pos', 'Flag', 'No.', 'Entrant', 'PTS',
+        ...championship.calendar.map(race => esc(race.code))];
     const rows = rankedStandings(championship, category).map(row => {
         const entrant = championship.entrants[row.entrant];
         return `<tr>
@@ -149,24 +158,23 @@ function standingsTable(championship, category, id, year) {
 // optional status (e.g. DNF) and driver IDs. Preserve the source row order.
 function individualRaceTable(championship, race) {
     const hasDrivers = race.results.some(result => result.drivers?.length);
-    const headers = ['<abbr title="Overall position">OP</abbr>', '<abbr title="Class position">P</abbr>', 'Class', 'Car', 'No.', 'Flag', 'Entrant', ...(hasDrivers ? ['Drivers'] : []), 'Laps', 'Gap'];
+    const headers = ['<abbr title="Overall position">OP</abbr>', '<abbr title="Class position">P</abbr>', 'Class', 'Car', 'No.', 'Flag', 'Entrant', 'Laps', 'Gap'];
     const columns = ['wec-col-compact', 'wec-col-compact', 'wec-col-compact', 'wec-col-car',
-        'wec-col-compact', 'wec-col-compact', 'wec-col-entrant', ...(hasDrivers ? ['wec-col-drivers'] : []),
+        'wec-col-compact', 'wec-col-compact', 'wec-col-entrant',
         'wec-col-compact', 'wec-col-gap'];
     const rows = race.results.map(result => {
         const entrant = championship.entrants[result.entrant];
         const category = entrant.category;
         return `<tr class="wec-result-row wec-result-${esc(category)}">
             ${result.status === 'DNF'
-                ? '<td colspan="2" class="num wec-retirement">DNF</td>'
+                ? `<td colspan="2" class="num wec-retirement"${result.retirementReason ? ` title="${esc(result.retirementReason)}"` : ''}>DNF</td>`
                 : `<td class="num ${finishClass(result.position <= 3 ? result.position : null)}">${displayValue(result.status || result.position)}</td>
             <td class="num ${finishClass(result.classPosition <= 3 ? result.classPosition : null)}">${result.classPosition == null ? '' : esc(result.classPosition)}</td>`}
-            <td class="wec-class-cell wec-class-${esc(category)}"><abbr title="${esc(WEC_CLASSES[category])}">${esc({ hypercar: 'HY', gt3: 'GT3', lmp2: 'LMP2' }[category])}</abbr></td>
-            <td class="wec-car"><span class="wec-manufacturer">${manufacturerBadge(entrant.car)}<span>${displayValue(entrant.car)}</span></span></td>
+            <td class="wec-class-cell wec-class-${esc(category)}"><abbr title="${esc(WEC_CLASSES[category])}">${esc({ hypercar: 'HY', gt3: 'GT3', gte: 'GTE', lmp2: 'LMP2', gtepro: 'GTE', gteam: 'GTE' }[category])}</abbr></td>
+            <td class="wec-car" title="${esc(entrant.car || '')}"><span class="wec-manufacturer">${manufacturerBadge(entrant.manufacturer || entrant.car)}<span>${displayValue(entrant.manufacturer || entrant.car)}</span></span></td>
             <td class="wec-number">#${esc(entrant.number)}</td>
             <td class="flag">${countryFlag(entrant.country)}</td>
             <td>${esc(entrant.team)}</td>
-            ${hasDrivers ? `<td>${driverList(result.drivers)}</td>` : ''}
             <td class="num">${displayValue(result.laps)}</td>
             <td class="wec-gap${result.classPosition === 1 ? ' wec-winning-time' : ''}">${result.gap == null ? '' : esc(result.gap)}</td>
         </tr>`;
@@ -175,7 +183,9 @@ function individualRaceTable(championship, race) {
     return `<article id="race-${esc(race.id)}" class="season-card">
         ${race.inProgress ? '<p class="wec-progress-note"><strong class="wec-progress">In progress</strong> Reported retirements are listed below; final positions, laps and gaps remain unreported.</p>' : ''}
         ${rows.length ? '' : '<p class="muted">Full race classification has not been supplied yet.</p>'}
-        ${wecTable(headers, rows, race.name || `${race.circuit} — race classification`, `wec-classification${hasDrivers ? ' has-drivers' : ''}`, false, race.country, columns)}
+        ${wecTable(headers, rows, race.name || `${race.circuit} — race classification`, 'wec-classification', false, race.country, columns)}
+        ${hasDrivers ? `<details class="wec-race-crews"><summary>Driver line-ups</summary><ul class="wec-race-crew-grid">${race.results.filter(result => result.drivers?.length).map(result => `<li><strong>${entrantLabel(championship, result.entrant)}</strong>${driverList(result.drivers)}</li>`).join('')}</ul></details>` : ''}
+        ${race.source ? `<p class="wec-source-note"><a href="${esc(race.source)}" target="_blank" rel="noopener noreferrer">Historical classification source</a></p>` : ''}
     </article>`;
 }
 

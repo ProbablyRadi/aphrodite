@@ -1,6 +1,11 @@
 // Championship analytics use class positions, never overall positions or live results.
 const RACE_POINTS = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1];
 const CHART_TEAM_COLOURS = {
+    'Team Project 1': '#2ba6b4', 'Alpine Elf Team': '#5266ee',
+    'Glickenhaus Racing': '#b79e46', 'Jota': '#35baa8', 'JOTA': '#35baa8',
+    'WRT': '#399bea', 'Realteam by WRT': '#9e77d9', 'United Autosports USA': '#889bb4',
+    'Porsche GT Team': '#d4943b', 'Corvette Racing': '#b6a02c',
+    'Dempsey-Proton Racing': '#c668b8', 'NorthWest AMR': '#32a083',
     'Toyota Gazoo Racing': '#e43847', 'Ferrari AF Corse': '#fa5b59',
     'AF Corse': '#e9a330', 'Porsche Penske Motorsport': '#c3a13a',
     'Proton Competition': '#b16bdc', 'BMW M Team WRT': '#358fe5',
@@ -15,16 +20,25 @@ const CHART_TEAM_COLOURS = {
     'United Autosports': '#889bb4', 'Proton Racing': '#c668b8'
 };
 
+function teamChartColour(team) {
+    if (CHART_TEAM_COLOURS[team]) return CHART_TEAM_COLOURS[team];
+    let hash = 0;
+    for (const char of team) hash = (Math.imul(hash, 31) + char.charCodeAt(0)) | 0;
+    return `hsl(${(hash >>> 0) % 360} 65% 48%)`;
+}
+
 function awardedRacePoints(result, race) {
+    // Historical imports include verified pole bonuses and eligibility adjustments.
+    if (Number.isFinite(result.awardedPoints)) return result.awardedPoints;
     if (result.status || !Number.isInteger(result.classPosition)) return 0;
-    return (RACE_POINTS[result.classPosition - 1] || 0) * (race.pointsMultiplier ?? 1);
+    return ((race.pointsScale || RACE_POINTS)[result.classPosition - 1] || 0) * (race.pointsScale ? 1 : (race.pointsMultiplier ?? 1));
 }
 
 function pointsProgression(championship, category) {
     const races = championship.calendar.filter(race => race.completed === true && !race.inProgress);
     const entrantIds = [...new Set([
         ...championship.standings[category].map(row => row.entrant),
-        ...races.flatMap(race => race.results.filter(row => championship.entrants[row.entrant]?.category === category).map(row => row.entrant))
+        ...races.flatMap(race => race.results.filter(row => championship.entrants[row.entrant]?.category === category && (!championship.historical || championship.standings[category].some(entry => entry.entrant === row.entrant))).map(row => row.entrant))
     ])];
     const teamCounts = new Map();
     const series = entrantIds.map(id => {
@@ -35,11 +49,12 @@ function pointsProgression(championship, category) {
         const points = races.map(race => {
             const result = race.results.find(row => row.entrant === id);
             // Missing classifications are unknown, not zero-point finishes.
-            cumulative = result && cumulative != null ? cumulative + awardedRacePoints(result, race) : null;
+            cumulative = result && cumulative != null ? cumulative + awardedRacePoints(result, race)
+                : championship.historical && !result && cumulative != null ? cumulative : null;
             return cumulative;
         });
         const results = races.map(race => race.results.find(row => row.entrant === id));
-        return { id, ...entrant, colour: CHART_TEAM_COLOURS[entrant.team] || '#8094ae',
+        return { id, ...entrant, colour: teamChartColour(entrant.team),
             dash: ['', '8 4', '2 4'][teammateIndex % 3], points,
             total: points.at(-1) ?? null,
             wins: results.filter(row => row && !row.status && row.classPosition === 1).length,
@@ -54,11 +69,11 @@ function pointsProgression(championship, category) {
 }
 
 function seasonOverview(championship) {
-    const models = ['hypercar', 'gt3'].map(category => pointsProgression(championship, category));
+    const models = (championship.categories || ['hypercar', 'gt3']).map(category => pointsProgression(championship, category));
     const complete = models[0].races.length;
     return `<section id="season-overview" class="wec-season-overview">
         <h2>Season overview</h2>
-        <p>Cumulative entrant points after each completed race. Scoring: 25–18–15–12–10–8–6–4–2–1; Le Mans awards double points. Live and future rounds are excluded.</p>
+        <p>Cumulative entrant points after each completed race. ${championship.scoringNote ? esc(championship.scoringNote) : 'Scoring: 25–18–15–12–10–8–6–4–2–1; Le Mans awards double points.'} Live and future rounds are excluded.</p>
         ${!complete ? '<p class="muted">Graphs will appear when completed race classifications are supplied.</p>' : `
         <div class="wec-completion"><span>${complete} / ${championship.calendar.length} races completed</span><progress max="${championship.calendar.length}" value="${complete}" aria-label="Completed races"></progress></div>
         ${models.map(model => pointsPanel(championship, model)).join('')}`}

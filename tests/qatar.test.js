@@ -6,9 +6,9 @@ for (const [round, key, name, country] of [
     [0, 'qatar', 'Qatar 4 Hours', 'Qatar'],
     [1, 'monza', 'Monza 4 Hours', 'Italy'],
     [2, 'spa', 'Spa 4 Hours', 'Belgium']
-]) test(`Jordan 2024 ${name}: all 37 source rows, exact gaps, classifications and class winners`, () => {
+]) test(`Rens 2024 ${name}: all 37 source rows, exact gaps, classifications and class winners`, () => {
     const site = createSite();
-    const championship = plain(site.evaluate('WEC_SEASONS.jordan["2024"]'));
+    const championship = plain(site.evaluate('WEC_SEASONS.rens["2024"]'));
     const race = championship.calendar[round];
     const source = read(`tests/fixtures/jordan-2024-${key}.tsv`).trim().split(/\r?\n/).slice(1);
     assert.equal(race.name, name);
@@ -33,11 +33,11 @@ for (const [round, key, name, country] of [
         const winner = race.results.find(row => row.classPosition === 1 && championship.entrants[row.entrant].category === category);
         assert.equal(winner.entrant, race.winners[category].entrant);
     }
-    for (const id of ['rens', 'vasi']) {
+    for (const id of ['jordan', 'vasi']) {
         site.navigate(`#${id}/2024`);
         assert(!site.app.innerHTML.includes(name));
     }
-    const markup = site.evaluate(`individualRaceTable(WEC_SEASONS.jordan['2024'], WEC_SEASONS.jordan['2024'].calendar[${round}])`);
+    const markup = site.evaluate(`individualRaceTable(WEC_SEASONS.rens['2024'], WEC_SEASONS.rens['2024'].calendar[${round}])`);
     assert(markup.includes(`alt="${country}"`));
     assert(markup.includes(name));
     assert.equal((markup.match(/>DNF<\/td>/g) || []).length, race.results.filter(row => row.status === 'DNF').length);
@@ -45,7 +45,7 @@ for (const [round, key, name, country] of [
 
 test('Qatar table has its top-left flag, podium cells, class colours and merged DNF position cells', () => {
     const site = createSite();
-    const markup = site.evaluate('individualRaceTable(WEC_SEASONS.jordan["2024"], WEC_SEASONS.jordan["2024"].calendar[0])');
+    const markup = site.evaluate('individualRaceTable(WEC_SEASONS.rens["2024"], WEC_SEASONS.rens["2024"].calendar[0])');
     assert.match(markup, /<caption><span class="wec-race-caption"><span><img[^>]+alt="Qatar"/);
     assert(markup.includes('Qatar 4 Hours'));
     assert(markup.includes('04:01:11.163'));
