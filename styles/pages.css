@@ -856,8 +856,27 @@ body.is-gallery .layout > aside { display: none; }
 body.theme-glass .home-player-tile::after { background: rgba(12,24,35,.25); }
 body.theme-glass .home-player-tile span { color: var(--text); text-shadow: none; }
 .wikitable caption { text-align: left; padding: 8px 0; font-weight: 600; }
-.career-overview-table { width: 100%; white-space: nowrap; }
+.career-overview-table { width: 100%; white-space: normal; }
+.profile-page .career-overview-table :is(th, td) { padding: 6px; font-size: 14px; }
+.career-overview-table :is(th, td):nth-child(n+6),
+.career-overview-table :is(th, td):nth-child(-n+2) { white-space: nowrap; }
+.career-overview-table :is(th, td):nth-child(4) { max-width: 180px; }
+.career-overview-table :is(th, td):nth-child(5) { max-width: 160px; }
+.career-overview-table .sort-indicator { position: static; display: inline-block; transform: none; margin-left: 3px; }
 .career-overview-table tbody th { text-align: left; }
+.driver-overview-layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; align-items: start; }
+.driver-overview-main { min-width: 0; }
+.driver-overview-main > h2 { margin-top: 0; }
+.driver-overview-sidebar { min-width: 0; }
+.profile-page .driver-infobox { float: none; width: 100%; margin: 0; table-layout: fixed; }
+.driver-infobox thead th { font-size: 20px; }
+.driver-infobox tbody th[scope="row"] { width: 52%; background: transparent; text-align: left; font-size: inherit; padding: 6px 8px; border-top: 1px solid var(--light); }
+.driver-infobox td { height: 30px; }
+.driver-infobox .driver-infobox-section th { font-size: inherit; }
+@media (max-width: 1100px) {
+  .driver-overview-layout { grid-template-columns: minmax(0, 1fr); }
+  .driver-overview-sidebar { width: min(100%, 350px); justify-self: center; }
+}
 .empty-state { padding: 28px 16px !important; text-align: center; }
 .season-card { margin-top: 24px; }
 .season-card .wikitable { width: 100%; }

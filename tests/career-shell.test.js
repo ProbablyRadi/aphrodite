@@ -40,7 +40,7 @@ test('Personal career totals remain unreported; equipment does not invent result
     const site = createSite();
     const records = plain(site.evaluate('DATA'));
     for (const character of Object.values(records)) {
-        assert.deepEqual(Object.keys(character.seasons), character.name === 'Vasiliki Dimitriou' ? ['2024', '2025', '2026'] : character.name === 'Rens Adisea' ? ['2022', '2023', '2024', '2025', '2026'] : ['2023', '2024', '2025', '2026']);
+        assert.deepEqual(Object.keys(character.seasons), ['2022', '2023', '2024', '2025', '2026']);
         for (const [year, record] of Object.entries(character.seasons)) {
             if (year === '2022') continue; // Historical #56 totals are now supplied.
             for (const key of ['position', 'starts', 'wins', 'podiums', 'poles', 'points']) assert.equal(record[key], null);
@@ -60,14 +60,29 @@ test('Rens owns the GT career and transferred 2024 results; Jordan owns the Hype
         ['21', 'Ferrari 296 GTB', 'GT3'], ['91', 'Porsche 911 GT3', 'GT3']
     ]);
     assert.deepEqual(histories.jordan, [
-        ['4', 'Vanwall Vandervell 680', 'Hypercar'], ['2', 'Cadillac', 'Hypercar'],
-        ['38', 'Cadillac', 'Hypercar'], ['38', 'Cadillac', 'Hypercar']
+        ['22', 'Oreca 07', 'LMP2'],
+        ['3', 'Cadillac V-Series.R', 'Hypercar'], ['3', 'Cadillac V-Series.R', 'Hypercar'],
+        ['38', 'Cadillac V-Series.R', 'Hypercar'], ['8', 'Toyota TR010', 'Hypercar']
     ]);
     site.navigate('#rens/2024');
     assert(!site.app.innerHTML.includes('Jordan Vale'));
     assert.match(site.app.innerHTML, /alt="Netherlands"[^>]*><\/td><td class="wec-overview-winner">Rens Adisea<\/td>/);
     assert.equal(site.evaluate(`WEC_SEASONS.rens['2024'].calendar.reduce((n, race) => n + race.results.length, 0)`), 120);
     assert.equal(site.evaluate(`WEC_SEASONS.jordan['2024'].calendar.length`), 0);
+});
+
+test('Rens profile totals combine season summaries with completed results without counting live races', () => {
+    const site = createSite();
+    assert.deepEqual(plain(site.evaluate('driverCareerTotals("rens")')), { starts: 9, wins: 2, podiums: 4, poles: null });
+    site.evaluate('DATA.rens.seasons["2024"].starts = 3; DATA.rens.seasons["2024"].wins = 2; DATA.rens.seasons["2024"].podiums = 2; DATA.rens.seasons["2024"].poles = 1');
+    assert.deepEqual(plain(site.evaluate('driverCareerTotals("rens")')), { starts: 9, wins: 2, podiums: 4, poles: 1 });
+    for (const id of ['rens', 'jordan', 'vasi']) {
+        site.navigate('#' + id);
+        assert(!site.app.innerHTML.includes('Fastest laps'));
+    }
+    site.navigate('#rens');
+    assert(site.app.innerHTML.includes('Vista AF Corse'));
+    assert(site.app.innerHTML.includes('Dutch'));
 });
 
 test('The selected career season expands its race links and marks the target race', () => {

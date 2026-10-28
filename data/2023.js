@@ -48,8 +48,7 @@ const ENTRANTS_2023 = {
     ]
 };
 
-function create2023Season() {
-    const calendar = [
+function create2023Season(roster = ENTRANTS_2023, schedule = [
         ['daytona', 'DAY', 'Daytona', 'United States'],
         ['portimao', 'POR', 'Portimão', 'Portugal'],
         ['spa', 'BEL', 'Spa', 'Belgium'],
@@ -57,12 +56,13 @@ function create2023Season() {
         ['monza', 'ITA', 'Monza', 'Italy'],
         ['fuji', 'JPN', 'Fuji', 'Japan'],
         ['road-atlanta', 'ATL', 'Road Atlanta', 'United States']
-    ].map(([id, code, circuit, country], index) => ({
+    ]) {
+    const calendar = schedule.map(([id, code, circuit, country], index) => ({
         id, code, circuit, country, round: index + 1,
         winners: {}, results: [], pointsMultiplier: id === 'le-mans' ? 2 : 1
     }));
     const entrants = {}, standings = {};
-    for (const [category, rows] of Object.entries(ENTRANTS_2023)) {
+    for (const [category, rows] of Object.entries(roster)) {
         standings[category] = rows.map(([number, team, country, manufacturer, car], index) => {
             const id = category + '-' + number;
             entrants[id] = { number, team, country, manufacturer, car, category };
@@ -79,4 +79,20 @@ function create2023Season() {
     };
 }
 WEC_SEASONS.rens['2023'] = create2023Season();
-WEC_SEASONS.jordan['2023'] = create2023Season();
+WEC_SEASONS.jordan['2023'] = create2023Season({
+    ...ENTRANTS_2023,
+    hypercar: [
+        ENTRANTS_2023.hypercar[0],
+        ['3', 'Cadillac Racing', 'United States', 'Cadillac', 'Cadillac V-Series.R'],
+        ...ENTRANTS_2023.hypercar.slice(1)
+    ]
+}, [
+    ['sebring', 'SEB', 'Sebring', 'United States'],
+    ['portimao', 'POR', 'Portimão', 'Portugal'],
+    ['spa', 'BEL', 'Spa', 'Belgium'],
+    ['le-mans', 'FRA', 'Le Mans', 'France'],
+    ['monza', 'ITA', 'Monza', 'Italy'],
+    ['fuji', 'JPN', 'Fuji', 'Japan'],
+    ['daytona', 'DAY', 'Daytona', 'United States'],
+    ['road-atlanta', 'ATL', 'Road Atlanta', 'United States']
+]);

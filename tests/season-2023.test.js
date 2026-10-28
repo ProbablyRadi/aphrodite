@@ -13,15 +13,16 @@ test('Both 2023 careers have the exact supplied rosters, zero points and unrepor
     for (const id of ['rens','jordan']) {
         const season = plain(site.evaluate(`WEC_SEASONS.${id}['2023']`));
         assert.deepEqual(season.categories, ['hypercar','gte','lmp2']);
-        assert.equal(Object.keys(season.entrants).length, 38);
-        assert.deepEqual(season.calendar.map(race => race.code), ['DAY','POR','BEL','FRA','ITA','JPN','ATL']);
-        assert.deepEqual(season.calendar.map(race => race.circuit), ['Daytona','Portimão','Spa','Le Mans','Monza','Fuji','Road Atlanta']);
+        assert.equal(Object.keys(season.entrants).length, id === 'jordan' ? 39 : 38);
+        assert.deepEqual(season.calendar.map(race => race.code), id === 'jordan' ? ['SEB','POR','BEL','FRA','ITA','JPN','DAY','ATL'] : ['DAY','POR','BEL','FRA','ITA','JPN','ATL']);
+        assert.deepEqual(season.calendar.map(race => race.circuit), id === 'jordan' ? ['Sebring','Portimão','Spa','Le Mans','Monza','Fuji','Daytona','Road Atlanta'] : ['Daytona','Portimão','Spa','Le Mans','Monza','Fuji','Road Atlanta']);
         for (const [category, numbers] of Object.entries(expected)) {
-            assert.deepEqual(season.standings[category].map(row => season.entrants[row.entrant].number), numbers);
+            const expectedNumbers = id === 'jordan' && category === 'hypercar' ? ['2', '3', ...numbers.slice(1)] : numbers;
+            assert.deepEqual(season.standings[category].map(row => season.entrants[row.entrant].number), expectedNumbers);
             season.standings[category].forEach((row, index) => {
                 assert.equal(row.position, index + 1);
                 assert.equal(row.points, 0);
-                assert.equal(Object.keys(row.finishes).length, 7);
+                assert.equal(Object.keys(row.finishes).length, season.calendar.length);
                 assert(Object.values(row.finishes).every(value => value === null));
                 const country = season.entrants[row.entrant].country;
                 assert(fs.existsSync(path.join(root, flags[country])), country);
@@ -35,7 +36,7 @@ test('Both 2023 careers have the exact supplied rosters, zero points and unrepor
         assert(site.app.innerHTML.includes('LMP2 Entrant Standings'));
         assert(site.app.innerHTML.includes('Portimão'));
         assert(!site.app.innerHTML.includes('Portimao'));
-        assert.equal((site.nav.innerHTML.match(/<li>/g) || []).length, 7);
+        assert.equal((site.nav.innerHTML.match(/<li>/g) || []).length, season.calendar.length);
     }
     assert.equal(site.evaluate('Object.hasOwn(WEC_SEASONS.vasi, "2023")'), false);
 });
