@@ -68,7 +68,7 @@ WEC_SEASONS.rens['2024'] = {
     ['gt-87', '87', 'Akkodis ASP Team', 'France', 'Lexus', 'gt3'],
     ['gt-81', '81', 'TF Sport', 'United Kingdom', 'Corvette', 'gt3'],
     ['gt-777', '777', "D'Station Racing", 'Japan', 'Aston Martin', 'gt3'],
-    ['gt-92', '92', 'Manthey PureRxing', 'Germany', 'Porsche', 'gt3'],
+    ['gt-92', '92', 'Manthey PureRxing', 'Lithuania', 'Porsche', 'gt3'],
     ['gt-60', '60', 'Iron Lynx', 'Italy', 'Lamborghini', 'gt3'],
     ['gt-54', '54', 'Vista AF Corse', 'Italy', 'Ferrari', 'gt3'],
     ['gt-95', '95', 'United Autosports', 'United Kingdom', 'McLaren', 'gt3'],

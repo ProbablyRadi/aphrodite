@@ -6,7 +6,7 @@ const displayValue = value => value == null || value === '' ? '—' : esc(value)
 
 // File keys are country names, so flags do not depend on platform emoji fonts.
 const COUNTRY_FLAGS = Object.fromEntries([
-    'Argentina', 'Austria', 'Belgium', 'Canada', 'China', 'Denmark', 'France', 'Germany', 'Israel', 'Italy', 'Japan', 'Luxembourg',
+    'Argentina', 'Austria', 'Belgium', 'Canada', 'China', 'Denmark', 'France', 'Germany', 'Israel', 'Italy', 'Japan', 'Lithuania', 'Luxembourg',
     'Netherlands', 'Oman', 'Poland', 'Portugal', 'Qatar', 'Spain', 'Switzerland', 'United Kingdom', 'United States'
 ].map(country => [country, `assets/flags/${country.replace(/ /g, '-')}.png`]));
 if (typeof HISTORICAL_FLAG_ASSETS !== 'undefined') Object.assign(COUNTRY_FLAGS, HISTORICAL_FLAG_ASSETS);
