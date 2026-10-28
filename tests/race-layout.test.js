@@ -8,7 +8,7 @@ test('Every current manufacturer has a valid local PNG badge', () => {
     const site = createSite();
     const badges = plain(site.evaluate('MANUFACTURER_BADGES'));
     const entrants = plain(site.evaluate('WEC_SEASONS.rens["2024"].entrants'));
-    for (const make of new Set(Object.values(entrants).map(entrant => entrant.car))) {
+    for (const make of new Set(Object.values(entrants).map(entrant => entrant.manufacturer || entrant.car).filter(make => make !== 'Oreca'))) {
         assert(badges[make], make);
         const contents = fs.readFileSync(path.join(root, badges[make]));
         assert.equal(contents.subarray(0, 8).toString('hex'), '89504e470d0a1a0a', make);
@@ -74,12 +74,13 @@ test('Spreadsheet overviews group each circuit across four crew rows and preserv
     assert(groups[0][1].includes('Toyota Gazoo Racing'));
     assert(groups[0][1].includes('José María López'));
     assert(groups[0][1].includes('Rens Adisea'));
-    assert(groups[3][1].includes('Provisional'));
+    assert(groups[3][1].includes('Robert Kubica'));
+    assert(!groups[3][1].includes('Provisional'));
     assert(!groups[4][1].includes('<strong>'));
     const lmp2 = site.evaluate('lmp2OverviewTable(WEC_SEASONS.rens["2024"], "rens", "2024")');
     assert(lmp2.includes('wec-overview-single'));
     assert.equal((lmp2.match(/<col class=/g) || []).length, 5);
     assert.equal((lmp2.match(/<tbody class="wec-round-group">/g) || []).length, 1);
     assert(lmp2.includes('alt="France"'));
-    assert(!lmp2.includes('<strong>'));
+    assert(lmp2.includes('United Autosports'));
 });

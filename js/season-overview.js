@@ -38,7 +38,7 @@ function pointsProgression(championship, category) {
     const races = championship.calendar.filter(race => race.completed === true && !race.inProgress);
     const entrantIds = [...new Set([
         ...championship.standings[category].map(row => row.entrant),
-        ...races.flatMap(race => race.results.filter(row => championship.entrants[row.entrant]?.category === category && (!championship.historical || championship.standings[category].some(entry => entry.entrant === row.entrant))).map(row => row.entrant))
+        ...races.flatMap(race => race.results.filter(row => championship.entrants[row.entrant]?.category === category && championship.entrants[row.entrant]?.championshipEligible !== false && (!championship.historical || championship.standings[category].some(entry => entry.entrant === row.entrant))).map(row => row.entrant))
     ])];
     const teamCounts = new Map();
     const series = entrantIds.map(id => {

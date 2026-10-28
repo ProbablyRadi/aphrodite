@@ -29,7 +29,7 @@ test('Every entrant, standing, supplied finish and points value matches the past
     const source = read('tests/fixtures/2024-standings.tsv').trim().split(/\r?\n/).slice(1);
     assert.equal(championship.standings.hypercar.length, 19);
     assert.equal(championship.standings.gt3.length, 18);
-    assert.equal(Object.keys(championship.entrants).length, 38);
+    assert.equal(Object.keys(championship.entrants).length, 62);
     for (const line of source) {
         const [category, pos, number, team, points, ...finishes] = line.split('\t');
         const actual = championship.standings[category][Number(pos) - 1];
@@ -38,13 +38,13 @@ test('Every entrant, standing, supplied finish and points value matches the past
         assert.equal(entrant.category, category);
         assert.equal(entrant.number, number);
         assert.equal(entrant.team, team);
-        assert.equal(actual.points, Number(points));
-        assert.deepEqual(Object.values(actual.finishes), championship.calendar.map((race, i) =>
+        assert.equal(actual.points - championship.calendar[3].results.find(row => row.entrant === actual.entrant).awardedPoints, Number(points));
+        assert.deepEqual(Object.values(actual.finishes).slice(0, 3), championship.calendar.slice(0, 3).map((race, i) =>
             finishes[i] == null ? null : finishes[i] === 'DNF' ? 'DNF' : Number(finishes[i])), `${team} #${number}`);
     }
 });
 
-test('Calendar and winners preserve the supplied custom season and partial Le Mans data', () => {
+test('Calendar and winners preserve the supplied custom season and final Le Mans data', () => {
     const site = createSite();
     const championship = plain(site.evaluate('WEC_SEASONS.rens["2024"]'));
     assert.deepEqual(championship.calendar.map(race => [race.round, race.code, race.circuit]), [
@@ -52,18 +52,18 @@ test('Calendar and winners preserve the supplied custom season and partial Le Ma
         [5, 'LGB', 'Long Beach'], [6, 'COT', 'COTA'], [7, 'ESP', 'Barcelona'], [8, 'JPN', 'Fuji']
     ]);
     assert.deepEqual(championship.calendar.map(race => [race.winners.hypercar?.entrant || null, race.winners.gt3?.entrant || null]), [
-        ['hy-7', 'gt-55'], ['hy-7', 'gt-55'], ['hy-51', 'gt-85'], [null, 'gt-55'],
+        ['hy-7', 'gt-55'], ['hy-7', 'gt-55'], ['hy-51', 'gt-85'], ['hy-83', 'gt-55'],
         [null, null], [null, null], [null, null], [null, null]
     ]);
     assert.deepEqual(championship.lmp2Calendar, [{ round: 1, race: 'le-mans' }]);
-    assert.equal(championship.calendar[3].winners.lmp2, undefined);
-    assert.equal(championship.standings.gt3[0].finishes['le-mans'], null);
-    assert.equal(championship.standings.gt3[0].points, 54);
+    assert.equal(championship.calendar[3].winners.lmp2.entrant, 'p2-22');
+    assert.equal(championship.standings.gt3[0].finishes['le-mans'], 1);
+    assert.equal(championship.standings.gt3[0].points, 104);
     assert.equal(championship.calendar[0].results.length, 37);
     assert.equal(championship.calendar[1].results.length, 37);
     assert.equal(championship.calendar[2].results.length, 37);
-    assert.equal(championship.calendar[3].results.length, 9);
-    assert.equal(championship.calendar[3].inProgress, true);
+    assert.equal(championship.calendar[3].results.length, 62);
+    assert.equal(championship.calendar[3].inProgress, false);
     assert(championship.calendar.slice(4).every(race => race.results.length === 0));
     assert.deepEqual(championship.calendar[0].winners.gt3.drivers, ['rens', 'rovera', 'mann']);
     assert.deepEqual(championship.calendar[2].winners.hypercar.drivers, ['pierGuidi', 'giovinazzi', 'calado']);

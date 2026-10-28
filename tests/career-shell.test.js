@@ -67,15 +67,15 @@ test('Rens owns the GT career and transferred 2024 results; Jordan owns the Hype
     site.navigate('#rens/2024');
     assert(!site.app.innerHTML.includes('Jordan Vale'));
     assert.match(site.app.innerHTML, /alt="Netherlands"[^>]*><\/td><td class="wec-overview-winner">Rens Adisea<\/td>/);
-    assert.equal(site.evaluate(`WEC_SEASONS.rens['2024'].calendar.reduce((n, race) => n + race.results.length, 0)`), 120);
+    assert.equal(site.evaluate(`WEC_SEASONS.rens['2024'].calendar.reduce((n, race) => n + race.results.length, 0)`), 173);
     assert.equal(site.evaluate(`WEC_SEASONS.jordan['2024'].calendar.length`), 0);
 });
 
 test('Rens profile totals combine season summaries with completed results without counting live races', () => {
     const site = createSite();
-    assert.deepEqual(plain(site.evaluate('driverCareerTotals("rens")')), { starts: 9, wins: 2, podiums: 4, poles: null });
-    site.evaluate('DATA.rens.seasons["2024"].starts = 3; DATA.rens.seasons["2024"].wins = 2; DATA.rens.seasons["2024"].podiums = 2; DATA.rens.seasons["2024"].poles = 1');
-    assert.deepEqual(plain(site.evaluate('driverCareerTotals("rens")')), { starts: 9, wins: 2, podiums: 4, poles: 1 });
+    assert.deepEqual(plain(site.evaluate('driverCareerTotals("rens")')), { starts: 10, wins: 3, podiums: 5, poles: null });
+    site.evaluate('DATA.rens.seasons["2024"].starts = 4; DATA.rens.seasons["2024"].wins = 3; DATA.rens.seasons["2024"].podiums = 3; DATA.rens.seasons["2024"].poles = 1');
+    assert.deepEqual(plain(site.evaluate('driverCareerTotals("rens")')), { starts: 10, wins: 3, podiums: 5, poles: 1 });
     for (const id of ['rens', 'jordan', 'vasi']) {
         site.navigate('#' + id);
         assert(!site.app.innerHTML.includes('Fastest laps'));

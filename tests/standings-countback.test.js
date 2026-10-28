@@ -4,6 +4,7 @@ const { createSite, plain } = require('./helpers/site');
 
 test('Zero-point Hypercars rank Alpine #35, Porsche #6, Peugeot #93 by completed results', () => {
     const site = createSite();
+    site.evaluate(`WEC_SEASONS.rens['2024'].calendar[3].inProgress = true; for (const row of WEC_SEASONS.rens['2024'].standings.hypercar) row.points -= WEC_SEASONS.rens['2024'].calendar[3].results.find(result => result.entrant === row.entrant).awardedPoints;`);
     const original = plain(site.evaluate('WEC_SEASONS.rens["2024"].standings.hypercar'));
     const ranked = plain(site.evaluate('rankedStandings(WEC_SEASONS.rens["2024"], "hypercar")'));
     assert.deepEqual(ranked.slice(-3).map(row => [row.position, row.entrant]), [[17, 'hy-35'], [18, 'hy-6'], [19, 'hy-93']]);
@@ -28,7 +29,7 @@ test('Points and full place countback resolve ties including second-best and non
 
 test('Live results cannot change countback, and analytics use the same tie ordering', () => {
     const site = createSite();
-    site.evaluate(`WEC_SEASONS.rens['2024'].standings.hypercar.find(row => row.entrant === 'hy-93').finishes['le-mans'] = 1;`);
+    site.evaluate(`WEC_SEASONS.rens['2024'].standings.hypercar.find(row => row.entrant === 'hy-93').finishes['long-beach'] = 1;`);
     const ranked = plain(site.evaluate('rankedStandings(WEC_SEASONS.rens["2024"], "hypercar")'));
     assert.equal(ranked.at(-1).entrant, 'hy-93');
     for (const category of ['hypercar', 'gt3']) {

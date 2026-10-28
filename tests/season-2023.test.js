@@ -49,5 +49,5 @@ test('Future 2023 results and entrant edits stay isolated between careers', () =
     assert.equal(site.evaluate(`WEC_SEASONS.jordan['2023'].calendar[0].results.length`), 0);
     assert.equal(site.evaluate(`WEC_SEASONS.jordan['2023'].standings.gte[6].finishes.daytona`), null);
     assert.equal(site.evaluate(`WEC_SEASONS.jordan['2023'].entrants['gte-56'].team`), 'Project 1 - AO Racing');
-    assert.equal(site.evaluate(`WEC_SEASONS.rens['2024'].standings.gt3[0].points`), 54);
+    assert.equal(site.evaluate(`WEC_SEASONS.rens['2024'].standings.gt3[0].points`), 104);
 });
